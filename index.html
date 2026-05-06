@@ -1225,9 +1225,33 @@
     .tl-nav button { padding: 6px 8px; }
 
     /* ----- CASE STUDY ----- */
-    .case-tabs { margin-bottom: 32px; }
-    .case-tabs button { padding: 14px 16px; min-width: 160px; }
-    .case-tabs button .ttl { font-size: 14px; }
+    .case-tabs {
+      margin: 0 -18px 32px;
+      padding: 0 18px;
+      scroll-snap-type: x mandatory;
+    }
+    .case-tabs button {
+      flex: 0 0 clamp(158px, 52vw, 220px);
+      min-width: 0;
+      padding: 14px 16px;
+      white-space: normal;
+      scroll-snap-align: start;
+      overflow: hidden;
+    }
+    .case-tabs button .num {
+      line-height: 1.35;
+      white-space: normal;
+    }
+    .case-tabs button .ttl {
+      display: block;
+      max-width: 100%;
+      font-size: 14px;
+      line-height: 1.25;
+      white-space: normal;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: auto;
+    }
     .case-lede { font-size: 18px; line-height: 1.5; margin-bottom: 24px; }
     .case-block { margin-bottom: 28px; }
 
