@@ -471,7 +471,7 @@
   }
   .timeline-node .label {
     position: absolute;
-    top: -46px;
+    top: -58px;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'JetBrains Mono', monospace;
@@ -480,23 +480,23 @@
     letter-spacing: 0.08em;
     text-transform: uppercase;
     white-space: nowrap;
-    opacity: 0.6;
+    opacity: 0.78;
     transition: opacity .2s, color .2s;
   }
   .timeline-node .label img {
     display: block;
-    max-height: 26px;
-    max-width: 120px;
+    max-height: 42px;
+    max-width: 190px;
     width: auto;
     object-fit: contain;
-    filter: grayscale(100%) opacity(0.65);
+    filter: grayscale(100%) opacity(0.78);
     transition: filter .2s;
   }
   .timeline-node:hover .label,
   .timeline-node.active .label { opacity: 1; color: var(--ink); }
   .timeline-node:hover .label img,
   .timeline-node.active .label img { filter: grayscale(0%) opacity(1); }
-  .timeline-node.down .label { top: auto; bottom: -46px; }
+  .timeline-node.down .label { top: auto; bottom: -58px; }
 
   /* card for currently-selected experience */
   .timeline-card {
