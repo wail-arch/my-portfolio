@@ -1743,7 +1743,7 @@
 <!-- ========== HEADER ========== -->
 <header class="head">
   <button class="menu-btn" id="menuBtn" aria-label="Menu" style="display:none"><i></i><i></i><i></i></button>
-  <div class="brand">Wail Menouni<sup>FR/001</sup></div>
+  <div class="brand notranslate" translate="no">Wail Menouni<sup>FR/001</sup></div>
   <nav>
     <a href="#index" data-nav data-i18n="nav.index">Index</a>
     <a href="#timeline" data-nav data-i18n="nav.timeline">Timeline</a>
@@ -1785,7 +1785,7 @@
         <div class="row"><div class="k" data-i18n="meta.loc">Base</div><div class="v">Nantes, France · 47.2184° N, 1.5536° W</div></div>
         <div class="row"><div class="k" data-i18n="meta.status">Statut</div><div class="v" data-i18n="meta.status.v">Disponible · Mobilité hybride</div></div>
       </div>
-      <h1 class="name">
+      <h1 class="name notranslate" translate="no">
         <span class="portrait-inline" aria-hidden="true"><img src="assets/wail.jpeg" alt=""></span>
         <span class="name-text">Wail<span class="dot"></span><span class="lastname">Menouni.</span></span>
       </h1>
@@ -1939,7 +1939,7 @@
             <div class="n-role" data-i18n="schema0.n1r">Les marques · Besoins</div>
           </div>
           <div class="schema-node accent">
-            <div class="n-name">Wail</div>
+            <div class="n-name notranslate" translate="no">Wail</div>
             <div class="n-role" data-i18n="schema0.n2r">Chargé de projet · Pivot</div>
           </div>
           <div class="schema-node">
@@ -3375,7 +3375,7 @@ function applyTweaks() {
   const portrait = document.querySelector('.portrait');
   if (tweakState.showPhoto === false || tweakState.showPhoto === 'false') {
     delete portrait.dataset.tiltReady;
-    portrait.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ink);color:var(--bg);font-family:'Instrument Serif',serif;font-style:italic;font-size:220px;line-height:1;letter-spacing:-0.05em;">WM<span style="color:var(--accent)">.</span></div>`;
+    portrait.innerHTML = `<div class="notranslate" translate="no" style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ink);color:var(--bg);font-family:'Instrument Serif',serif;font-style:italic;font-size:220px;line-height:1;letter-spacing:-0.05em;">WM<span style="color:var(--accent)">.</span></div>`;
   } else {
     delete portrait.dataset.tiltReady;
     portrait.innerHTML = '<img src="assets/wail.jpeg" alt="Wail Menouni">';
