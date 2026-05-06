@@ -29,10 +29,10 @@
     --ink: #18181B;
     --ink-2: #3A3A3F;
     --ink-3: #6B6B70;
-    --ink-4: #A8A79E;
+    --ink-4: #6F6E66;
     --rule: #D9D3BF;
     --paper: #FBF9F2;
-    --accent: #C84B31;
+    --accent: #B8442C;
     --accent-ink: #fff;
   }
   html[data-palette="ink"] {
@@ -41,7 +41,7 @@
     --ink: #F0EDE3;
     --ink-2: #D6D3C8;
     --ink-3: #9A978E;
-    --ink-4: #55544F;
+    --ink-4: #8B887F;
     --rule: #2A2A2C;
     --paper: #141415;
     --accent: #E8683F;
@@ -52,7 +52,7 @@
     --ink: #111;
     --ink-2: #333;
     --ink-3: #6b6b6b;
-    --ink-4: #b4b4ad;
+    --ink-4: #686868;
     --rule: #e4e2d8;
     --paper: #fff;
     --accent: #111;
@@ -63,7 +63,7 @@
     --ink: #1A1F1A;
     --ink-2: #2F3A2F;
     --ink-3: #6B746B;
-    --ink-4: #A6ABA0;
+    --ink-4: #666F65;
     --rule: #D3CEBE;
     --paper: #FBF9F2;
     --accent: #2E5D4E;
@@ -89,6 +89,35 @@
   .caps { text-transform: uppercase; letter-spacing: 0.14em; }
 
   a { color: inherit; }
+
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: 12px;
+    z-index: 1000;
+    transform: translateY(-160%);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 10px 14px;
+    border: 2px solid var(--accent);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .skip-link:focus-visible { transform: translateY(0); }
+
+  :focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 4px;
+  }
+  :focus:not(:focus-visible) { outline: none; }
+  main:focus { outline: none; }
 
   /* ============== GRAIN (paper texture) ============== */
   body::before {
@@ -165,6 +194,9 @@
     cursor: pointer; letter-spacing: 0.12em;
   }
   .lang-toggle button.on { background: var(--ink); color: var(--bg); }
+  .lang-toggle button:focus-visible {
+    outline-offset: 2px;
+  }
 
   /* ============== HERO ============== */
   .hero {
@@ -455,6 +487,10 @@
     transform: translate(-50%, -50%);
     cursor: pointer;
     padding: 8px;
+    border: 0;
+    background: transparent;
+    color: inherit;
+    font: inherit;
   }
   .timeline-node .chip {
     width: 14px; height: 14px; border-radius: 50%;
@@ -493,8 +529,10 @@
     transition: filter .2s;
   }
   .timeline-node:hover .label,
+  .timeline-node:focus-visible .label,
   .timeline-node.active .label { opacity: 1; color: var(--ink); }
   .timeline-node:hover .label img,
+  .timeline-node:focus-visible .label img,
   .timeline-node.active .label img { filter: grayscale(0%) opacity(1); }
   .timeline-node.down .label { top: auto; bottom: -58px; }
 
@@ -732,9 +770,13 @@
     height: 2px; background: var(--accent);
   }
   .case-tabs button:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 3%, transparent); }
+  .case-tabs button:focus-visible {
+    z-index: 1;
+  }
 
   /* Case panel transition */
   .case-panel { display: none; }
+  .case-panel[hidden] { display: none !important; }
   .case-panel.on { display: block; animation: caseFade .5s cubic-bezier(0.2, 0.8, 0.3, 1); }
   @keyframes caseFade {
     from { opacity: 0; transform: translateY(8px); }
@@ -1450,8 +1492,8 @@
     .tools-nav button { background: transparent; border: 1px solid var(--rule); padding: 10px 16px; cursor: pointer; font: inherit; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-2); letter-spacing: 0.1em; }
     .tools-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
     .tools-nav .dots { display: flex; gap: 6px; align-items: center; }
-    .tools-nav .dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-4); transition: background .2s, width .2s; cursor: pointer; }
-    .tools-nav .dots span.on { background: var(--accent); width: 18px; border-radius: 3px; }
+    .tools-nav .dots button { width: 10px; height: 10px; min-width: 10px; padding: 0; border: 0; border-radius: 50%; background: var(--ink-4); transition: background .2s, width .2s; cursor: pointer; }
+    .tools-nav .dots button.on { background: var(--accent); width: 22px; border-radius: 999px; }
 
     /* ----- CONTACT ----- */
     #contact { padding: 72px 18px 40px; }
@@ -1752,12 +1794,13 @@
 </style>
 </head>
 <body>
+<a class="skip-link" href="#main" data-i18n="skip.main">Aller au contenu</a>
 
 <!-- ========== HEADER ========== -->
 <header class="head">
-  <button class="menu-btn" id="menuBtn" aria-label="Menu" style="display:none"><i></i><i></i><i></i></button>
+  <button class="menu-btn" id="menuBtn" type="button" aria-label="Ouvrir le menu" aria-controls="mobileOverlay" aria-expanded="false"><i aria-hidden="true"></i><i aria-hidden="true"></i><i aria-hidden="true"></i></button>
   <div class="brand notranslate" translate="no">Wail Menouni<sup>FR/001</sup></div>
-  <nav>
+  <nav aria-label="Navigation principale">
     <a href="#index" data-nav data-i18n="nav.index">Index</a>
     <a href="#timeline" data-nav data-i18n="nav.timeline">Timeline</a>
     <a href="#projet" data-nav data-i18n="nav.project">Projet</a>
@@ -1765,16 +1808,16 @@
     <a href="#contact" data-nav data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="right">
-    <div class="lang-toggle" role="group" aria-label="Language">
-      <button data-lang="fr" class="on">FR</button>
-      <button data-lang="en">EN</button>
+    <div class="lang-toggle" role="group" aria-label="Langue">
+      <button data-lang="fr" class="on" type="button" aria-pressed="true" lang="fr">FR</button>
+      <button data-lang="en" type="button" aria-pressed="false" lang="en">EN</button>
     </div>
   </div>
 </header>
 
 <!-- Mobile menu overlay -->
-<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
-  <nav>
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true" hidden inert>
+  <nav aria-label="Navigation mobile">
     <a href="#index" data-mob><span data-i18n="nav.index">Index</span> <em>01</em></a>
     <a href="#timeline" data-mob><span data-i18n="nav.timeline">Timeline</span> <em>02</em></a>
     <a href="#projet" data-mob><span data-i18n="nav.project">Projet</span> <em>03</em></a>
@@ -1788,6 +1831,7 @@
   </div>
 </div>
 
+<main id="main" tabindex="-1">
 <!-- ========== HERO ========== -->
 <section class="hero" data-section id="index" data-screen-label="01 Index">
   <div class="hero-grid">
@@ -1820,7 +1864,7 @@
       J’aide à faire avancer des <em>projets web</em> où les besoins marketing, les contraintes DSI, les exigences cybersécurité et le <span class="mark">travail des agences</span> doivent s’aligner. Mon rôle&nbsp;: garder les échanges assez clairs pour que le projet avance.
     </p>
     <div class="right-col">
-      <a href="assets/CV.pdf" target="_blank" rel="noopener">
+      <a id="cvLink" href="assets/CV.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV PDF, ouvre un nouvel onglet">
         <span data-i18n="cta.cv">Télécharger le CV (PDF)</span>
         <span class="arrow">↓</span>
       </a>
@@ -1828,7 +1872,7 @@
         <span data-i18n="cta.contact">Écrivez-moi</span>
         <span class="arrow">→</span>
       </a>
-      <a href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener">
+      <a id="linkedinHeroLink" href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener" aria-label="LinkedIn de Wail Menouni, ouvre un nouvel onglet">
         <span>LinkedIn</span>
         <span class="arrow">↗</span>
       </a>
@@ -1856,20 +1900,20 @@
   </div>
 
   <div class="timeline-stage">
-    <div class="tl-tabs" id="tl-tabs" role="tablist"></div>
-    <div class="timeline-rail rv" id="rail">
+    <div class="tl-tabs" id="tl-tabs" role="tablist" aria-label="Chapitres du parcours"></div>
+    <div class="timeline-rail rv" id="rail" role="group" aria-label="Parcours chronologique">
       <div class="timeline-years">
         <span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
       </div>
       <!-- nodes are injected by JS so we can compute positions & order -->
     </div>
 
-    <div class="timeline-card rv" id="tl-card"></div>
+    <div class="timeline-card rv" id="tl-card" role="tabpanel" aria-live="polite"></div>
 
     <div class="tl-nav">
-      <button id="tl-prev">← <span data-i18n="tl.prev">Précédent</span></button>
+      <button id="tl-prev" type="button">← <span data-i18n="tl.prev">Précédent</span></button>
       <div class="counter"><b id="tl-cur">01</b> / <span id="tl-total">05</span></div>
-      <button id="tl-next"><span data-i18n="tl.next">Suivant</span> →</button>
+      <button id="tl-next" type="button"><span data-i18n="tl.next">Suivant</span> →</button>
     </div>
   </div>
 </section>
@@ -1887,27 +1931,27 @@
   </div>
 
   <!-- Case tabs -->
-  <div class="case-tabs rv" id="case-tabs" role="tablist">
-    <button class="on" data-case="0">
+  <div class="case-tabs rv" id="case-tabs" role="tablist" aria-label="Études de cas">
+    <button class="on" data-case="0" id="case-tab-0" type="button" role="tab" aria-selected="true" aria-controls="case-0">
       <span class="num" data-i18n="ct.0.num">01 / Sécurité</span>
       <span class="ttl" data-i18n="ct.0">Parc web international</span>
     </button>
-    <button data-case="1">
+    <button data-case="1" id="case-tab-1" type="button" role="tab" aria-selected="false" aria-controls="case-1" tabindex="-1">
       <span class="num" data-i18n="ct.1.num">02 / Conformité</span>
       <span class="ttl" data-i18n="ct.1">RGPD · A11y · Éco-conception</span>
     </button>
-    <button data-case="2">
+    <button data-case="2" id="case-tab-2" type="button" role="tab" aria-selected="false" aria-controls="case-2" tabindex="-1">
       <span class="num" data-i18n="ct.2.num">03 / Automatisation</span>
       <span class="ttl" data-i18n="ct.2">Power Automate · SharePoint</span>
     </button>
-    <button data-case="3">
+    <button data-case="3" id="case-tab-3" type="button" role="tab" aria-selected="false" aria-controls="case-3" tabindex="-1">
       <span class="num" data-i18n="ct.3.num">04 / Recherche</span>
       <span class="ttl" data-i18n="ct.3">IA &amp; expérience client</span>
     </button>
   </div>
 
   <!-- ========== CASE 01 — Sécurité parc ========== -->
-  <div class="case-panel on" id="case-0">
+  <div class="case-panel on" id="case-0" role="tabpanel" aria-labelledby="case-tab-0">
   <div class="case-grid">
     <div class="rv">
       <p class="case-lede" data-i18n="case0.lede">
@@ -2013,7 +2057,7 @@
   </div>
 
   <!-- ========== CASE 02 — Conformité ========== -->
-  <div class="case-panel" id="case-1">
+  <div class="case-panel" id="case-1" role="tabpanel" aria-labelledby="case-tab-1" hidden>
   <div class="case-grid">
     <div class="rv">
       <p class="case-lede" data-i18n="case1.lede">
@@ -2101,7 +2145,7 @@
   </div>
 
   <!-- ========== CASE 03 — Automatisation ========== -->
-  <div class="case-panel" id="case-2">
+  <div class="case-panel" id="case-2" role="tabpanel" aria-labelledby="case-tab-2" hidden>
   <div class="case-grid">
     <div class="rv">
       <p class="case-lede" data-i18n="case2.lede">
@@ -2189,7 +2233,7 @@
   </div>
 
   <!-- ========== CASE 04 — Recherche IA ========== -->
-  <div class="case-panel" id="case-3">
+  <div class="case-panel" id="case-3" role="tabpanel" aria-labelledby="case-tab-3" hidden>
   <div class="case-grid">
     <div class="rv">
       <p class="case-lede" data-i18n="case3.lede">
@@ -2334,9 +2378,9 @@
     </p>
   </div>
 
-  <div class="tools-grid" id="tools-grid">
-   <div class="tool-track" id="tool-track">
-    <div class="tool-group rv">
+  <div class="tools-grid" id="tools-grid" role="region" aria-label="Outils et terrains">
+   <div class="tool-track" id="tool-track" aria-live="polite">
+    <div class="tool-group rv" role="group" aria-label="Pilotage et gouvernance">
       <h4 data-i18n="tg.1">Pilotage &amp; gouvernance</h4>
       <ul>
         <li class="primary"><span data-i18n="tg.1.a">Gestion de projet web</span><span class="lvl">Lead</span></li>
@@ -2347,7 +2391,7 @@
       </ul>
     </div>
 
-    <div class="tool-group rv">
+    <div class="tool-group rv" role="group" aria-label="Conformité web">
       <h4 data-i18n="tg.2">Conformité web</h4>
       <ul>
         <li class="primary"><span>RGAA 4.1 · WCAG 2.1</span><span class="lvl">Lead</span></li>
@@ -2358,7 +2402,7 @@
       </ul>
     </div>
 
-    <div class="tool-group rv">
+    <div class="tool-group rv" role="group" aria-label="Web et stack">
       <h4 data-i18n="tg.3">Web &amp; stack</h4>
       <ul>
         <li class="primary"><span>WordPress</span><span class="lvl">Hands-on</span></li>
@@ -2369,7 +2413,7 @@
       </ul>
     </div>
 
-    <div class="tool-group rv">
+    <div class="tool-group rv" role="group" aria-label="Marketing et UX">
       <h4 data-i18n="tg.4">Marketing &amp; UX</h4>
       <ul>
         <li class="primary"><span>SEO · SEA</span><span class="lvl">Hands-on</span></li>
@@ -2381,9 +2425,9 @@
     </div>
    </div>
    <div class="tools-nav" id="tools-nav">
-     <button id="tools-prev" aria-label="Prev">←</button>
-     <div class="dots" id="tools-dots"></div>
-     <button id="tools-next" aria-label="Next">→</button>
+     <button id="tools-prev" type="button" aria-label="Groupe d'outils précédent">←</button>
+     <div class="dots" id="tools-dots" role="group" aria-label="Groupes d'outils"></div>
+     <button id="tools-next" type="button" aria-label="Groupe d'outils suivant">→</button>
    </div>
   </div>
 </section>
@@ -2406,7 +2450,7 @@
       </div>
       <div class="contact-col rv">
         <div class="label">Linkedin</div>
-        <a href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener">/wail-menouni</a>
+        <a id="linkedinContactLink" href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener" aria-label="LinkedIn de Wail Menouni, ouvre un nouvel onglet">/wail-menouni</a>
       </div>
     </div>
 
@@ -2418,15 +2462,16 @@
     </footer>
   </div>
 </section>
+</main>
 
 <!-- ========== SIDE PROGRESS ========== -->
-<nav class="side-prog" aria-label="Progress">
-  <a href="#index" data-side><span class="tick"></span><span data-i18n="side.index">01 · Index</span></a>
-  <a href="#timeline" data-side><span class="tick"></span><span data-i18n="side.timeline">02 · Timeline</span></a>
-  <a href="#projet" data-side><span class="tick"></span><span data-i18n="side.project">03 · Projet</span></a>
-  <a href="#manifeste" data-side><span class="tick"></span><span data-i18n="side.manifesto">04 · Manifeste</span></a>
-  <a href="#outils" data-side><span class="tick"></span><span data-i18n="side.tools">05 · Outils</span></a>
-  <a href="#contact" data-side><span class="tick"></span><span data-i18n="side.contact">06 · Contact</span></a>
+<nav class="side-prog" aria-label="Progression dans la page">
+  <a href="#index" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.index">01 · Index</span></a>
+  <a href="#timeline" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.timeline">02 · Timeline</span></a>
+  <a href="#projet" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.project">03 · Projet</span></a>
+  <a href="#manifeste" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.manifesto">04 · Manifeste</span></a>
+  <a href="#outils" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.tools">05 · Outils</span></a>
+  <a href="#contact" data-side><span class="tick" aria-hidden="true"></span><span data-i18n="side.contact">06 · Contact</span></a>
 </nav>
 
 <!-- ========== TWEAKS PANEL ========== -->
@@ -2632,6 +2677,7 @@ const dict = {
     'case.s1': 'Sites web audités et classés par criticité',
     'case.s2': 'Coupure de service sur la bascule WAF',
     'case.s3': 'Audit accessibilité niveau AA conduit en parallèle',
+    'skip.main': 'Aller au contenu',
     'nav.index': 'Index', 'nav.timeline': 'Timeline', 'nav.project': 'Projet', 'nav.manifesto': 'Manifeste', 'nav.tools': 'Outils', 'nav.contact': 'Contact',
     'nav.write': 'Écrire →',
     'side.index': '01 · Index', 'side.timeline': '02 · Timeline', 'side.project': '03 · Projet', 'side.manifesto': '04 · Manifeste', 'side.tools': '05 · Outils', 'side.contact': '06 · Contact',
@@ -2763,6 +2809,7 @@ const dict = {
     'case.s1': 'Sites audited and classified by criticality',
     'case.s2': 'Downtime during the WAF cutover',
     'case.s3': 'Accessibility audit (AA level) run in parallel',
+    'skip.main': 'Skip to content',
     'nav.index': 'Index', 'nav.timeline': 'Timeline', 'nav.project': 'Project', 'nav.manifesto': 'Manifesto', 'nav.tools': 'Tools', 'nav.contact': 'Contact',
     'nav.write': 'Write →',
     'side.index': '01 · Index', 'side.timeline': '02 · Timeline', 'side.project': '03 · Project', 'side.manifesto': '04 · Manifesto', 'side.tools': '05 · Tools', 'side.contact': '06 · Contact',
@@ -2922,9 +2969,33 @@ function setLang(lang) {
   });
   wrapSectionTitles();
   document.querySelectorAll('.lang-toggle button').forEach(b => {
-    b.classList.toggle('on', b.dataset.lang === lang);
+    const isActive = b.dataset.lang === lang;
+    b.classList.toggle('on', isActive);
+    b.setAttribute('aria-pressed', String(isActive));
   });
-  // re-render timeline card in new language
+  document.querySelector('.lang-toggle')?.setAttribute('aria-label', lang === 'fr' ? 'Langue' : 'Language');
+  document.querySelector('.head nav')?.setAttribute('aria-label', lang === 'fr' ? 'Navigation principale' : 'Main navigation');
+  document.querySelector('.mobile-overlay nav')?.setAttribute('aria-label', lang === 'fr' ? 'Navigation mobile' : 'Mobile navigation');
+  document.querySelector('.side-prog')?.setAttribute('aria-label', lang === 'fr' ? 'Progression dans la page' : 'Page progress');
+  document.getElementById('rail')?.setAttribute('aria-label', lang === 'fr' ? 'Parcours chronologique' : 'Timeline');
+  document.getElementById('case-tabs')?.setAttribute('aria-label', lang === 'fr' ? 'Études de cas' : 'Case studies');
+  const menuIsOpen = document.getElementById('menuBtn')?.classList.contains('open');
+  document.getElementById('menuBtn')?.setAttribute('aria-label', menuIsOpen
+    ? (lang === 'fr' ? 'Fermer le menu' : 'Close menu')
+    : (lang === 'fr' ? 'Ouvrir le menu' : 'Open menu'));
+  document.getElementById('cvLink')?.setAttribute('aria-label', lang === 'fr'
+    ? 'Télécharger le CV PDF, ouvre un nouvel onglet'
+    : 'Download the PDF resume, opens a new tab');
+  document.getElementById('linkedinHeroLink')?.setAttribute('aria-label', lang === 'fr'
+    ? 'LinkedIn de Wail Menouni, ouvre un nouvel onglet'
+    : 'Wail Menouni on LinkedIn, opens a new tab');
+  document.getElementById('linkedinContactLink')?.setAttribute('aria-label', lang === 'fr'
+    ? 'LinkedIn de Wail Menouni, ouvre un nouvel onglet'
+    : 'Wail Menouni on LinkedIn, opens a new tab');
+  window.updateToolsLabels?.();
+  // re-render timeline controls and card in new language
+  buildRail();
+  buildTabs();
   renderCard(activeIdx);
   buildTicker();
 }
@@ -2945,12 +3016,25 @@ function pos(year) {
 function buildTabs() {
   const tabs = document.getElementById('tl-tabs');
   if (!tabs) return;
+  tabs.setAttribute('aria-label', currentLang === 'fr' ? 'Chapitres du parcours' : 'Timeline chapters');
   tabs.innerHTML = chapters.map((ch, i) => {
     const y = Math.floor(ch.date.start);
-    return `<button data-i="${i}"${i===activeIdx?' class="on"':''}><span>${ch.company}</span><span class="year">${y}</span></button>`;
+    return `<button type="button" role="tab" id="tl-tab-${i}" data-i="${i}" aria-controls="tl-card" aria-selected="${i===activeIdx}" ${i===activeIdx?'class="on"':'tabindex="-1"'}><span>${ch.company}</span><span class="year">${y}</span></button>`;
   }).join('');
   tabs.querySelectorAll('button').forEach(b => {
     b.addEventListener('click', () => selectIdx(parseInt(b.dataset.i, 10)));
+    b.addEventListener('keydown', e => {
+      const i = parseInt(b.dataset.i, 10);
+      let next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % chapters.length;
+      if (e.key === 'ArrowLeft') next = (i - 1 + chapters.length) % chapters.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = chapters.length - 1;
+      if (next == null) return;
+      e.preventDefault();
+      selectIdx(next);
+      document.getElementById(`tl-tab-${next}`)?.focus();
+    });
   });
 }
 
@@ -2958,17 +3042,33 @@ function buildRail() {
   // remove existing nodes (keep years div)
   rail.querySelectorAll('.timeline-node').forEach(n => n.remove());
   chapters.forEach((ch, i) => {
-    const node = document.createElement('div');
+    const node = document.createElement('button');
+    node.type = 'button';
     node.className = 'timeline-node' + (i === activeIdx ? ' active' : '') + (i % 2 === 1 ? ' down' : '');
     node.style.left = (pos(ch.date.start) * 100) + '%';
+    node.setAttribute('aria-label', `${ch.company}, ${ch.when[currentLang]}`);
+    node.setAttribute('aria-pressed', String(i === activeIdx));
+    node.dataset.i = String(i);
+    node.dataset.when = ch.when[currentLang];
     const labelInner = ch.logo
-      ? `<img src="${ch.logo}" alt="${ch.company}">`
+      ? `<img src="${ch.logo}" alt="">`
       : ch.company;
     node.innerHTML = `
-      <div class="label">${labelInner}</div>
-      <div class="chip"></div>
+      <span class="label" aria-hidden="true">${labelInner}</span>
+      <span class="chip" aria-hidden="true"></span>
     `;
     node.addEventListener('click', () => selectIdx(i));
+    node.addEventListener('keydown', e => {
+      let next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % chapters.length;
+      if (e.key === 'ArrowLeft') next = (i - 1 + chapters.length) % chapters.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = chapters.length - 1;
+      if (next == null) return;
+      e.preventDefault();
+      selectIdx(next);
+      rail.querySelector(`.timeline-node[data-i="${next}"]`)?.focus();
+    });
     rail.appendChild(node);
   });
 }
@@ -3006,10 +3106,21 @@ function renderCard(i) {
 
 function selectIdx(i) {
   activeIdx = Math.max(0, Math.min(chapters.length - 1, i));
-  document.querySelectorAll('.timeline-node').forEach((n, k) => n.classList.toggle('active', k === activeIdx));
-  document.querySelectorAll('#tl-tabs button').forEach((b, k) => b.classList.toggle('on', k === activeIdx));
+  document.querySelectorAll('.timeline-node').forEach((n, k) => {
+    const isActive = k === activeIdx;
+    n.classList.toggle('active', isActive);
+    n.setAttribute('aria-pressed', String(isActive));
+  });
+  document.querySelectorAll('#tl-tabs button').forEach((b, k) => {
+    const isActive = k === activeIdx;
+    b.classList.toggle('on', isActive);
+    b.setAttribute('aria-selected', String(isActive));
+    b.tabIndex = isActive ? 0 : -1;
+  });
+  card.setAttribute('aria-labelledby', `tl-tab-${activeIdx}`);
   const active = document.querySelector('#tl-tabs button.on');
-  if (active && active.scrollIntoView) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (active && active.scrollIntoView) active.scrollIntoView({behavior: reduce ? 'auto' : 'smooth', inline:'center', block:'nearest'});
   document.getElementById('tl-cur').textContent = String(activeIdx + 1).padStart(2, '0');
   renderCard(activeIdx);
 }
@@ -3020,22 +3131,44 @@ document.getElementById('tl-total').textContent = String(chapters.length).padSta
 
 buildRail();
 buildTabs();
+card.setAttribute('aria-labelledby', 'tl-tab-0');
 renderCard(0);
 
 /* ===== Case study tabs ===== */
 (function(){
   const tabs = document.querySelectorAll('#case-tabs button');
   const panels = document.querySelectorAll('.case-panel');
+  function activateCase(i, moveFocus = false) {
+    tabs.forEach((b, k) => {
+      const isActive = k === i;
+      b.classList.toggle('on', isActive);
+      b.setAttribute('aria-selected', String(isActive));
+      b.tabIndex = isActive ? 0 : -1;
+    });
+    panels.forEach((p, k) => {
+      const isActive = k === i;
+      p.classList.toggle('on', isActive);
+      p.hidden = !isActive;
+    });
+    if (moveFocus) tabs[i]?.focus();
+    // re-trigger reveal animations on the now-visible panel
+    panels[i].querySelectorAll('.rv').forEach(el => {
+      el.classList.remove('on');
+      requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+    });
+  }
   tabs.forEach(t => {
-    t.addEventListener('click', () => {
+    t.addEventListener('click', () => activateCase(parseInt(t.dataset.case, 10)));
+    t.addEventListener('keydown', e => {
       const i = parseInt(t.dataset.case, 10);
-      tabs.forEach(b => b.classList.toggle('on', parseInt(b.dataset.case,10) === i));
-      panels.forEach((p, k) => p.classList.toggle('on', k === i));
-      // re-trigger reveal animations on the now-visible panel
-      panels[i].querySelectorAll('.rv').forEach(el => {
-        el.classList.remove('on');
-        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
-      });
+      let next = null;
+      if (e.key === 'ArrowRight') next = (i + 1) % tabs.length;
+      if (e.key === 'ArrowLeft') next = (i - 1 + tabs.length) % tabs.length;
+      if (e.key === 'Home') next = 0;
+      if (e.key === 'End') next = tabs.length - 1;
+      if (next == null) return;
+      e.preventDefault();
+      activateCase(next, true);
     });
   });
 })();
@@ -3050,14 +3183,46 @@ renderCard(0);
   const groups = track.querySelectorAll('.tool-group');
   groups.forEach((g,i) => { const h = g.querySelector('h4'); if (h) h.setAttribute('data-idx', String(i+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0')); });
   let idx = 0;
+  window.updateToolsLabels = function updateToolsLabels() {
+    const fr = currentLang === 'fr';
+    document.getElementById('tools-grid')?.setAttribute('aria-label', fr ? 'Outils et terrains' : 'Tools and terrains');
+    prev?.setAttribute('aria-label', fr ? "Groupe d'outils précédent" : 'Previous tools group');
+    next?.setAttribute('aria-label', fr ? "Groupe d'outils suivant" : 'Next tools group');
+    dotsWrap?.setAttribute('aria-label', fr ? "Groupes d'outils" : 'Tools groups');
+    dotsWrap?.querySelectorAll('button').forEach((button, i) => {
+      button.setAttribute('aria-label', `${fr ? "Afficher le groupe d'outils" : 'Show tools group'} ${i + 1}`);
+    });
+    const labels = fr
+      ? ['Pilotage et gouvernance', 'Conformité web', 'Web et stack', 'Marketing et UX']
+      : ['Leadership and governance', 'Web compliance', 'Web and stack', 'Marketing and UX'];
+    groups.forEach((g, i) => g.setAttribute('aria-label', labels[i] || `${fr ? 'Groupe' : 'Group'} ${i + 1}`));
+  };
   function render(){
     const mob = window.matchMedia('(max-width: 720px)').matches;
     track.style.transform = mob ? `translateX(-${idx*100}%)` : '';
-    dotsWrap.querySelectorAll('span').forEach((d,i)=>d.classList.toggle('on', i===idx));
+    dotsWrap.querySelectorAll('button').forEach((d,i)=>{
+      const isActive = i===idx;
+      d.classList.toggle('on', isActive);
+      d.setAttribute('aria-current', String(isActive));
+    });
     prev.disabled = idx===0; next.disabled = idx===groups.length-1;
   }
-  dotsWrap.innerHTML = Array.from(groups).map((_,i)=>`<span${i===0?' class="on"':''}></span>`).join('');
-  dotsWrap.querySelectorAll('span').forEach((d,i)=>d.addEventListener('click',()=>{idx=i;render();}));
+  dotsWrap.innerHTML = Array.from(groups).map((_,i)=>`<button type="button"${i===0?' class="on"':''} aria-label="${currentLang === 'fr' ? "Afficher le groupe d'outils" : 'Show tools group'} ${i+1}"></button>`).join('');
+  dotsWrap.querySelectorAll('button').forEach((d,i)=>{
+    d.addEventListener('click',()=>{idx=i;render();});
+    d.addEventListener('keydown', e => {
+      let nextIdx = null;
+      if (e.key === 'ArrowRight') nextIdx = Math.min(groups.length - 1, i + 1);
+      if (e.key === 'ArrowLeft') nextIdx = Math.max(0, i - 1);
+      if (e.key === 'Home') nextIdx = 0;
+      if (e.key === 'End') nextIdx = groups.length - 1;
+      if (nextIdx == null) return;
+      e.preventDefault();
+      idx = nextIdx;
+      render();
+      dotsWrap.querySelectorAll('button')[nextIdx]?.focus();
+    });
+  });
   prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);render();});
   next.addEventListener('click',()=>{idx=Math.min(groups.length-1,idx+1);render();});
   let sx=0,dx=0,drag=false;
@@ -3065,6 +3230,7 @@ renderCard(0);
   track.addEventListener('touchmove',e=>{if(drag)dx=e.touches[0].clientX-sx;},{passive:true});
   track.addEventListener('touchend',()=>{if(!drag)return;drag=false;if(Math.abs(dx)>40){if(dx<0)idx=Math.min(groups.length-1,idx+1);else idx=Math.max(0,idx-1);render();}});
   window.addEventListener('resize',render);
+  window.updateToolsLabels();
   render();
 })();
 
@@ -3107,17 +3273,31 @@ document.querySelectorAll('.lang-toggle button').forEach(b => {
    =========================================================== */
 const menuBtn = document.getElementById('menuBtn');
 const mobOverlay = document.getElementById('mobileOverlay');
-menuBtn.addEventListener('click', () => {
-  const open = menuBtn.classList.toggle('open');
+function setMenuOpen(open) {
+  menuBtn.classList.toggle('open', open);
+  menuBtn.setAttribute('aria-expanded', String(open));
+  menuBtn.setAttribute('aria-label', open
+    ? (currentLang === 'fr' ? 'Fermer le menu' : 'Close menu')
+    : (currentLang === 'fr' ? 'Ouvrir le menu' : 'Open menu'));
+  mobOverlay.hidden = !open;
+  mobOverlay.inert = !open;
+  mobOverlay.setAttribute('aria-hidden', String(!open));
   mobOverlay.classList.toggle('open', open);
   document.body.style.overflow = open ? 'hidden' : '';
+}
+menuBtn.addEventListener('click', () => {
+  setMenuOpen(!menuBtn.classList.contains('open'));
 });
 document.querySelectorAll('[data-mob]').forEach(a => {
   a.addEventListener('click', () => {
-    menuBtn.classList.remove('open');
-    mobOverlay.classList.remove('open');
-    document.body.style.overflow = '';
+    setMenuOpen(false);
   });
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && menuBtn.classList.contains('open')) {
+    setMenuOpen(false);
+    menuBtn.focus();
+  }
 });
 
 /* ===========================================================
@@ -3183,8 +3363,10 @@ wrapSectionTitles();
 
   const dot = document.createElement('div');
   dot.className = 'cursor-dot';
+  dot.setAttribute('aria-hidden', 'true');
   const ring = document.createElement('div');
   ring.className = 'cursor-ring';
+  ring.setAttribute('aria-hidden', 'true');
   document.body.appendChild(dot);
   document.body.appendChild(ring);
 
@@ -3351,7 +3533,12 @@ const sIO = new IntersectionObserver(entries => {
   entries.forEach(e => {
     if (e.isIntersecting) {
       const id = e.target.id;
-      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+      navLinks.forEach(a => {
+        const isActive = a.getAttribute('href') === '#' + id;
+        a.classList.toggle('active', isActive);
+        if (isActive) a.setAttribute('aria-current', 'page');
+        else a.removeAttribute('aria-current');
+      });
     }
   });
 }, { rootMargin: '-40% 0px -55% 0px' });
