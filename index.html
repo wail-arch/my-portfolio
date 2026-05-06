@@ -1,0 +1,2627 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wail Menouni — Chargé de Projet Digital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,300;1,6..72,400;1,6..72,500&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500;600&family=Inter+Tight:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ==========================================================
+     TWEAKABLE DEFAULTS — the host parses this JSON and can write it back
+     ========================================================== */
+</style>
+<script>
+  const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
+    "palette": "cream",
+    "timelineStyle": "horizontal",
+    "showPhoto": true,
+    "accentHue": 16,
+    "displaySerif": "instrument"
+  }/*EDITMODE-END*/;
+</script>
+<style>
+  :root {
+    /* palette: cream (default) */
+    --bg: #F4F1E8;
+    --bg-2: #EDE8D9;
+    --ink: #18181B;
+    --ink-2: #3A3A3F;
+    --ink-3: #6B6B70;
+    --ink-4: #A8A79E;
+    --rule: #D9D3BF;
+    --paper: #FBF9F2;
+    --accent: #C84B31;
+    --accent-ink: #fff;
+  }
+  html[data-palette="ink"] {
+    --bg: #0F0F10;
+    --bg-2: #18181A;
+    --ink: #F0EDE3;
+    --ink-2: #D6D3C8;
+    --ink-3: #9A978E;
+    --ink-4: #55544F;
+    --rule: #2A2A2C;
+    --paper: #141415;
+    --accent: #E8683F;
+  }
+  html[data-palette="paper"] {
+    --bg: #FAFAF7;
+    --bg-2: #F2F0E9;
+    --ink: #111;
+    --ink-2: #333;
+    --ink-3: #6b6b6b;
+    --ink-4: #b4b4ad;
+    --rule: #e4e2d8;
+    --paper: #fff;
+    --accent: #111;
+  }
+  html[data-palette="forest"] {
+    --bg: #F2EFE8;
+    --bg-2: #E8E4D8;
+    --ink: #1A1F1A;
+    --ink-2: #2F3A2F;
+    --ink-3: #6B746B;
+    --ink-4: #A6ABA0;
+    --rule: #D3CEBE;
+    --paper: #FBF9F2;
+    --accent: #2E5D4E;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin:0; padding:0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-size: 16px;
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+  ::selection { background: var(--ink); color: var(--bg); }
+
+  .serif { font-family: 'Newsreader', 'Instrument Serif', Georgia, serif; font-weight: 400; letter-spacing: -0.02em; }
+  .italic-serif { font-family: 'Instrument Serif', 'Newsreader', Georgia, serif; font-style: italic; font-weight: 400; }
+  .mono { font-family: 'JetBrains Mono', ui-monospace, monospace; font-variant-ligatures: none; }
+  .caps { text-transform: uppercase; letter-spacing: 0.14em; }
+
+  a { color: inherit; }
+
+  /* ============== GRAIN (paper texture) ============== */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 100;
+    opacity: 0.32;
+    mix-blend-mode: multiply;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.1 0 0 0 0 0.08 0 0 0 0 0.05 0 0 0 0.35 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  }
+  html[data-palette="ink"] body::before { mix-blend-mode: screen; opacity: 0.18; }
+
+  /* ============== HEADER ============== */
+  .head {
+    position: fixed; top: 0; left: 0; right: 0;
+    z-index: 50;
+    padding: 18px 32px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    gap: 24px;
+    background: linear-gradient(to bottom, var(--bg) 70%, transparent);
+  }
+  .head .brand {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-size: 22px;
+    letter-spacing: -0.01em;
+  }
+  .head .brand sup {
+    font-family: 'JetBrains Mono', monospace;
+    font-style: normal;
+    font-size: 10px;
+    color: var(--ink-3);
+    margin-left: 6px;
+    letter-spacing: 0.1em;
+  }
+  .head nav {
+    display: flex; gap: 28px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--ink-3);
+    justify-self: center;
+  }
+  .head nav a { text-decoration: none; position: relative; padding: 6px 2px; transition: color .2s; }
+  .head nav a:hover { color: var(--ink); }
+  .head nav a.active { color: var(--ink); }
+  .head nav a.active::after {
+    content:''; position:absolute; left:0; right:0; bottom:0; height:1px; background: var(--ink);
+  }
+  .head .right {
+    justify-self: end;
+    display: flex; gap: 14px; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+  .lang-toggle {
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    padding: 4px;
+    display: flex;
+    background: var(--paper);
+  }
+  .lang-toggle button {
+    border: 0; background: transparent;
+    font: inherit; color: var(--ink-3);
+    padding: 4px 10px; border-radius: 999px;
+    cursor: pointer; letter-spacing: 0.12em;
+  }
+  .lang-toggle button.on { background: var(--ink); color: var(--bg); }
+
+  /* ============== HERO ============== */
+  .hero {
+    padding: 160px 32px 80px;
+    position: relative;
+  }
+  .hero-grid {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: end;
+  }
+  .hero-left { position: relative; }
+  .hero-meta {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px 16px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 48px;
+    max-width: 480px;
+  }
+  .hero-meta .k { color: var(--ink-4); }
+  .hero-meta .v { color: var(--ink-2); }
+  .hero-meta .row { display: contents; }
+  .hero-meta .row:not(:last-child) .k,
+  .hero-meta .row:not(:last-child) .v {
+    padding-bottom: 8px;
+    border-bottom: 1px dotted var(--rule);
+    margin-bottom: 4px;
+  }
+
+  h1.name {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(72px, 11vw, 172px);
+    line-height: 0.85;
+    letter-spacing: -0.045em;
+    margin: 0;
+    color: var(--ink);
+  }
+  h1.name .lastname {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    font-weight: 400;
+    display: block;
+    padding-left: 0.15em;
+    letter-spacing: -0.03em;
+  }
+  h1.name .portrait-inline { display: none; }
+  h1.name .dot {
+    display: inline-block;
+    width: 0.18em;
+    height: 0.18em;
+    border-radius: 50%;
+    background: var(--accent);
+    vertical-align: 0.1em;
+    margin-left: 0.08em;
+  }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 24px;
+  }
+  .portrait {
+    width: 340px;
+    height: 420px;
+    position: relative;
+    overflow: hidden;
+    background: var(--bg-2);
+    filter: grayscale(100%) contrast(1.05);
+    transition: filter 0.5s ease;
+  }
+  .portrait:hover { filter: grayscale(0%) contrast(1); }
+  .portrait img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    mix-blend-mode: multiply;
+  }
+  html[data-palette="ink"] .portrait img { mix-blend-mode: screen; }
+  .portrait-caption {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .portrait-caption::before {
+    content: ''; width: 40px; height: 1px; background: var(--ink-3);
+  }
+
+  /* pitch beneath hero */
+  .pitch-row {
+    max-width: 1400px;
+    margin: 80px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 200px 1fr 280px;
+    gap: 60px;
+    align-items: start;
+  }
+  .pitch-row .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .pitch-row .pitch {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(22px, 2.2vw, 30px);
+    line-height: 1.32;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    max-width: 720px;
+  }
+  .pitch-row .pitch em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+  }
+  .pitch-row .pitch .mark { color: var(--accent); font-style: italic; font-family: 'Instrument Serif', serif; }
+  .pitch-row .right-col {
+    display: flex; flex-direction: column; gap: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    color: var(--ink-2);
+  }
+  .pitch-row .right-col a {
+    text-decoration: none;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex; justify-content: space-between; align-items: center;
+    transition: color .2s;
+  }
+  .pitch-row .right-col a:hover { color: var(--accent); }
+  .pitch-row .right-col a .arrow {
+    transition: transform .2s;
+  }
+  .pitch-row .right-col a:hover .arrow { transform: translateX(4px); }
+
+  /* ticker */
+  .ticker {
+    margin-top: 96px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    padding: 14px 0;
+    overflow: hidden;
+    background: var(--paper);
+  }
+  .ticker-track {
+    display: flex;
+    gap: 56px;
+    white-space: nowrap;
+    animation: scroll 50s linear infinite;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--ink-2);
+    text-transform: uppercase;
+  }
+  .ticker-track span { display: inline-flex; align-items: center; gap: 56px; }
+  .ticker-track .dot {
+    display: inline-block; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent);
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* ============== SECTION HEADERS ============== */
+  section[data-section] { padding: 120px 32px; position: relative; }
+  .section-head {
+    max-width: 1400px;
+    margin: 0 auto 64px;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 60px;
+    align-items: end;
+    padding-bottom: 32px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .section-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.14em;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(44px, 6vw, 88px);
+    line-height: 0.92;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .section-title em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--ink-3);
+  }
+  .section-deck {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    max-width: 560px;
+  }
+
+  /* ============== TIMELINE (centerpiece) ============== */
+  #timeline { background: var(--bg-2); }
+  .timeline-stage {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .timeline-rail {
+    position: relative;
+    height: 540px;
+    margin: 40px 0 0;
+  }
+  .timeline-rail::before {
+    content:''; position: absolute; left: 0; right: 0; top: 50%; height: 1px;
+    background: var(--rule);
+  }
+  .timeline-years {
+    position: absolute; inset: 0;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    pointer-events: none;
+  }
+  .timeline-years span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-4);
+    letter-spacing: 0.1em;
+    padding-top: calc(50% + 4px);
+    padding-left: 8px;
+    border-left: 1px dotted var(--rule);
+  }
+  .timeline-node {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    padding: 8px;
+  }
+  .timeline-node .chip {
+    width: 14px; height: 14px; border-radius: 50%;
+    background: var(--paper);
+    border: 2px solid var(--ink-2);
+    transition: all .3s;
+    position: relative;
+  }
+  .timeline-node.active .chip {
+    background: var(--accent);
+    border-color: var(--accent);
+    transform: scale(1.4);
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 18%, transparent);
+  }
+  .timeline-node .label {
+    position: absolute;
+    top: -46px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0.6;
+    transition: opacity .2s, color .2s;
+  }
+  .timeline-node:hover .label,
+  .timeline-node.active .label { opacity: 1; color: var(--ink); }
+  .timeline-node.down .label { top: auto; bottom: -46px; }
+
+  /* card for currently-selected experience */
+  .timeline-card {
+    max-width: 1400px;
+    margin: 48px auto 0;
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 60px;
+    min-height: 440px;
+    position: relative;
+  }
+  .tc-left { display: flex; flex-direction: column; gap: 24px; }
+  .tc-logo {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(56px, 8vw, 110px);
+    line-height: 0.88;
+    letter-spacing: -0.035em;
+    color: var(--ink);
+    margin: 0;
+  }
+  .tc-logo em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--ink-3);
+    font-size: 0.72em;
+    display: block;
+    margin-top: 0.1em;
+  }
+  .tc-meta {
+    display: flex;
+    gap: 32px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+  }
+  .tc-meta b { color: var(--accent); font-weight: 500; }
+  .tc-role {
+    font-family: 'Newsreader', serif;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 1.3;
+    letter-spacing: -0.01em;
+    color: var(--ink-2);
+  }
+  .tc-right {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .tc-deck {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 1.55;
+    color: var(--ink-2);
+    border-left: 2px solid var(--accent);
+    padding-left: 20px;
+  }
+  .tc-deck em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--ink); }
+  .tc-bullets {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: flex; flex-direction: column;
+  }
+  .tc-bullets li {
+    font-size: 14.5px;
+    line-height: 1.5;
+    padding: 14px 0 14px 36px;
+    border-bottom: 1px dotted var(--rule);
+    color: var(--ink-2);
+    position: relative;
+  }
+  .tc-bullets li::before {
+    content: attr(data-n);
+    position: absolute; left: 0; top: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.1em;
+  }
+  .tc-tags {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 4px;
+  }
+  .tc-tags span {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-2);
+    padding: 5px 10px;
+    border: 1px solid var(--rule);
+    border-radius: 999px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .timeline-card.fading { opacity: 0; transform: translateY(8px); }
+  .timeline-card { transition: opacity .35s ease, transform .35s ease; }
+
+  /* arrows */
+  .tl-nav {
+    display: flex; justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    max-width: 1400px;
+    margin-left: auto; margin-right: auto;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .tl-nav button {
+    background: transparent; border: 0; font: inherit; cursor: pointer;
+    color: var(--ink-3);
+    padding: 8px 12px;
+    transition: color .2s;
+  }
+  .tl-nav button:hover { color: var(--ink); }
+  .tl-nav .counter b { color: var(--ink); font-weight: 500; }
+
+  /* ============== PROJECT CASE STUDY ============== */
+  #projet { background: var(--paper); }
+
+  /* Case tabs */
+  .case-tabs {
+    max-width: 1400px; margin: 0 auto 48px;
+    display: flex; gap: 0;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--rule);
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .case-tabs::-webkit-scrollbar { display: none; }
+  .case-tabs button {
+    flex: 1 1 auto;
+    background: transparent; border: 0;
+    padding: 18px 20px;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+    border-right: 1px solid var(--rule);
+    color: var(--ink-3);
+    transition: color .25s, background .25s;
+    position: relative;
+    min-width: 200px;
+    white-space: nowrap;
+  }
+  .case-tabs button:last-child { border-right: 0; }
+  .case-tabs button .num {
+    display: block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase;
+    margin-bottom: 6px;
+    color: var(--ink-4);
+  }
+  .case-tabs button .ttl {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink-2);
+  }
+  .case-tabs button.on { background: var(--bg-2); color: var(--ink); }
+  .case-tabs button.on .num { color: var(--accent); font-weight: 600; }
+  .case-tabs button.on .ttl { color: var(--ink); font-weight: 500; }
+  .case-tabs button.on::after {
+    content: ''; position: absolute;
+    left: 0; right: 0; bottom: -1px;
+    height: 2px; background: var(--accent);
+  }
+  .case-tabs button:hover { color: var(--ink); background: color-mix(in srgb, var(--ink) 3%, transparent); }
+
+  /* Case panel transition */
+  .case-panel { display: none; }
+  .case-panel.on { display: block; animation: caseFade .5s cubic-bezier(0.2, 0.8, 0.3, 1); }
+  @keyframes caseFade {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .case-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+  }
+  .case-title {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(40px, 5vw, 68px);
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin: 0 0 24px;
+  }
+  .case-title em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent); }
+  .case-lede {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 21px;
+    line-height: 1.5;
+    color: var(--ink-2);
+    margin-bottom: 32px;
+  }
+  .case-lede strong { font-weight: 500; color: var(--ink); }
+  .case-block { margin-bottom: 40px; }
+  .case-block .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .case-block p {
+    font-size: 15.5px; line-height: 1.65; color: var(--ink-2); margin: 0 0 10px;
+  }
+
+  /* schema diagram for the security project */
+  .schema {
+    background: var(--bg);
+    border: 1px solid var(--rule);
+    padding: 32px;
+    position: relative;
+    min-height: 420px;
+  }
+  .schema-title {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    color: var(--ink-3);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex; justify-content: space-between;
+  }
+  .schema-flow {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0;
+    position: relative;
+    align-items: stretch;
+  }
+  .schema-node {
+    padding: 20px 16px;
+    border: 1px solid var(--rule);
+    background: var(--paper);
+    position: relative;
+    z-index: 2;
+    /* position: relative is needed for the ::before arrow on mobile */
+    display: flex; flex-direction: column; gap: 8px;
+    text-align: center;
+  }
+  .schema-node .n-name { font-family: 'Instrument Serif', serif; font-style: italic; font-size: 22px; line-height: 1.1; color: var(--ink); }
+  .schema-node .n-role { font-family: 'JetBrains Mono', monospace; font-size: 9px; color: var(--ink-3); letter-spacing: 0.1em; text-transform: uppercase; }
+  .schema-node.accent { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 8%, var(--paper)); }
+  .schema-node.accent .n-name { color: var(--accent); }
+  .schema-arrow {
+    align-self: center;
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+  }
+  .schema-arrow svg { display: block; margin: 0 auto; }
+
+  .schema-layers {
+    display: grid; grid-template-columns: 1fr; gap: 12px;
+    margin-top: 24px;
+  }
+  .schema-layer {
+    display: grid;
+    grid-template-columns: 40px 1fr auto;
+    gap: 16px;
+    align-items: center;
+    padding: 12px 16px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    font-size: 13px;
+  }
+  .schema-layer .num { font-family: 'JetBrains Mono', monospace; font-size: 10px; color: var(--accent); letter-spacing: 0.1em; }
+  .schema-layer .lname { font-family: 'Newsreader', serif; font-weight: 400; font-size: 16px; color: var(--ink); }
+  .schema-layer .ldesc { display: block; font-size: 12px; color: var(--ink-3); margin-top: 2px; }
+  .schema-layer .status {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9px;
+    padding: 3px 9px;
+    background: color-mix(in srgb, var(--accent) 14%, transparent);
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    border-radius: 999px;
+    text-transform: uppercase;
+  }
+  .schema-layer.done .status { background: color-mix(in srgb, var(--ink-2) 10%, transparent); color: var(--ink-2); }
+
+  .case-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid var(--rule);
+  }
+  .case-stat .n {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: 56px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--ink);
+  }
+  .case-stat .n sup { font-size: 0.4em; color: var(--accent); top: -0.9em; margin-left: 2px; }
+  .case-stat .l {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-top: 8px;
+    max-width: 180px;
+    line-height: 1.5;
+  }
+
+  /* ============== MANIFESTO / 3 THINGS ============== */
+  #manifeste { padding: 140px 32px; }
+  .manifesto-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .manifesto-item {
+    border-top: 1px solid var(--ink);
+    padding-top: 24px;
+    position: relative;
+  }
+  .manifesto-item .num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    display: block;
+  }
+  .manifesto-item h3 {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.025em;
+    margin: 0 0 18px;
+  }
+  .manifesto-item h3 em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent); }
+  .manifesto-item p {
+    font-size: 15px; line-height: 1.6; color: var(--ink-2); margin: 0;
+  }
+
+  /* ============== TOOLBELT (skills as monospace list) ============== */
+  #outils { background: var(--bg-2); }
+  .tools-grid {
+    max-width: 1400px; margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
+    gap: 48px 32px;
+  }
+  .tools-grid .tool-track { display: contents; }
+  .tools-nav { display: none; }
+  .tool-group h4 {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .tool-group ul { list-style: none; padding: 0; margin: 0; }
+  .tool-group li {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px dotted var(--rule);
+    font-size: 14.5px;
+    font-family: 'Newsreader', serif;
+    color: var(--ink-2);
+  }
+  .tool-group li .lvl {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--ink-4);
+    letter-spacing: 0.08em;
+    align-self: center;
+    text-transform: uppercase;
+  }
+  .tool-group li.primary {
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .tool-group li.primary .lvl { color: var(--accent); }
+
+  /* ============== CONTACT / FOOTER ============== */
+  #contact { background: var(--ink); color: var(--bg); padding: 120px 32px 60px; }
+  html[data-palette="ink"] #contact { background: #000; }
+  .contact-grid {
+    max-width: 1400px; margin: 0 auto;
+  }
+  .contact-title {
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(64px, 9vw, 140px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    margin: 0 0 60px;
+    max-width: 1100px;
+  }
+  .contact-title em {
+    font-family: 'Instrument Serif', serif;
+    font-style: italic;
+    color: var(--accent);
+  }
+  .contact-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 40px;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+  }
+  .contact-col .label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10.5px;
+    color: color-mix(in srgb, var(--bg) 50%, transparent);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  .contact-col a {
+    text-decoration: none;
+    display: block;
+    font-family: 'Newsreader', serif;
+    font-weight: 300;
+    font-size: clamp(22px, 2.4vw, 32px);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    padding: 6px 0;
+    transition: color .2s, padding-left .2s;
+    position: relative;
+  }
+  .contact-col a:hover { color: var(--accent); padding-left: 10px; }
+  .contact-col a::before {
+    content: '→';
+    position: absolute;
+    left: -24px; top: 50%; transform: translateY(-50%);
+    opacity: 0; transition: opacity .2s;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16px;
+  }
+  .contact-col a:hover::before { opacity: 1; left: -18px; }
+
+  footer.foot {
+    max-width: 1400px; margin: 100px auto 0;
+    padding-top: 40px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: color-mix(in srgb, var(--bg) 50%, transparent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  footer.foot .colophon { max-width: 520px; line-height: 1.8; text-transform: none; letter-spacing: 0.02em; color: color-mix(in srgb, var(--bg) 60%, transparent); font-family: 'Newsreader', serif; font-size: 13px; }
+  footer.foot .colophon em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--bg); }
+
+  /* ============== TWEAKS PANEL ============== */
+  #tweaks {
+    position: fixed;
+    right: 16px; bottom: 16px;
+    z-index: 200;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    padding: 18px 20px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--ink-2);
+    width: 280px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+    transform: translateY(calc(100% + 20px));
+    transition: transform .35s cubic-bezier(0.2, 0.8, 0.3, 1);
+    opacity: 0;
+    pointer-events: none;
+  }
+  #tweaks.visible { transform: translateY(0); opacity: 1; pointer-events: auto; }
+  #tweaks header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--rule);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: var(--ink-3);
+  }
+  #tweaks header b { color: var(--ink); font-weight: 500; }
+  #tweaks .group { margin-bottom: 14px; }
+  #tweaks .group label { display: block; margin-bottom: 6px; color: var(--ink-3); font-size: 9.5px; letter-spacing: 0.1em; }
+  #tweaks .chips { display: flex; gap: 4px; flex-wrap: wrap; }
+  #tweaks .chips button {
+    background: transparent;
+    border: 1px solid var(--rule);
+    font: inherit;
+    font-size: 10px;
+    color: var(--ink-2);
+    padding: 5px 9px;
+    cursor: pointer;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 0;
+  }
+  #tweaks .chips button.on { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+  #tweaks .swatches { display: flex; gap: 6px; }
+  #tweaks .sw {
+    width: 28px; height: 28px;
+    border: 1px solid var(--rule);
+    cursor: pointer;
+    position: relative;
+  }
+  #tweaks .sw.on::after {
+    content: ''; position: absolute; inset: 3px; border: 1px solid var(--paper);
+  }
+
+  /* Side progress */
+  .side-prog {
+    position: fixed;
+    right: 24px; top: 50%; transform: translateY(-50%);
+    z-index: 40;
+    display: flex; flex-direction: column; gap: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .side-prog a {
+    text-decoration: none;
+    display: flex; align-items: center; gap: 10px;
+    color: inherit;
+    transition: color .2s;
+  }
+  .side-prog a:hover, .side-prog a.active { color: var(--ink); }
+  .side-prog a .tick {
+    width: 24px; height: 1px; background: var(--ink-4);
+    transition: width .3s, background .3s;
+  }
+  .side-prog a.active .tick, .side-prog a:hover .tick { width: 42px; background: var(--accent); }
+
+  /* ===== MOBILE NAV (hamburger) — hidden on desktop ===== */
+  .menu-btn { display: none; background: transparent; border: 0; width: 34px; height: 34px; position: relative; cursor: pointer; padding: 0; }
+  .menu-btn i { display: block; width: 22px; height: 1.5px; background: var(--ink); position: absolute; left: 6px; transition: transform .3s, top .3s, opacity .2s; }
+  .menu-btn i:nth-child(1) { top: 11px; }
+  .menu-btn i:nth-child(2) { top: 17px; width: 16px; }
+  .menu-btn i:nth-child(3) { top: 23px; }
+  .menu-btn.open i:nth-child(1) { top: 17px; transform: rotate(45deg); }
+  .menu-btn.open i:nth-child(2) { opacity: 0; }
+  .menu-btn.open i:nth-child(3) { top: 17px; transform: rotate(-45deg); width: 22px; }
+
+  .mobile-overlay {
+    position: fixed; inset: 0; background: var(--bg); z-index: 49;
+    transform: translateY(-100%); transition: transform .5s cubic-bezier(0.7, 0, 0.2, 1);
+    padding: 90px 24px 40px; display: flex; flex-direction: column;
+  }
+  .mobile-overlay.open { transform: translateY(0); }
+  .mobile-overlay nav { display: flex; flex-direction: column; gap: 4px; }
+  .mobile-overlay nav a {
+    font-family: 'Newsreader', serif; font-weight: 300;
+    font-size: 44px; line-height: 1.1; letter-spacing: -0.03em;
+    padding: 14px 0; border-bottom: 1px solid var(--rule);
+    text-decoration: none; color: var(--ink);
+    display: flex; justify-content: space-between; align-items: baseline;
+  }
+  .mobile-overlay nav a em { font-family: 'Instrument Serif', serif; font-style: italic; color: var(--accent); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .mobile-overlay .bottom {
+    margin-top: auto; padding-top: 32px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-family: 'JetBrains Mono', monospace; font-size: 10px;
+    color: var(--ink-3); letter-spacing: 0.12em; text-transform: uppercase;
+  }
+
+  /* ============================================================
+     ≤ 960px  — TABLET
+     ============================================================ */
+  @media (max-width: 960px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 40px; align-items: start; }
+    .hero-right { align-items: flex-start; }
+    .portrait { width: 100%; max-width: 320px; height: 380px; }
+    .pitch-row { grid-template-columns: 1fr; gap: 20px; }
+    .section-head { grid-template-columns: 1fr; gap: 20px; }
+    .case-grid { grid-template-columns: 1fr; gap: 40px; }
+    .manifesto-grid { grid-template-columns: 1fr; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .contact-cols { grid-template-columns: 1fr; }
+    .head nav { display: none; }
+    .menu-btn { display: block; }
+    .head { grid-template-columns: auto 1fr auto; }
+    .timeline-card { grid-template-columns: 1fr; gap: 30px; }
+    .side-prog { display: none; }
+  }
+
+  /* ============================================================
+     MOBILE TIMELINE (tabs strip + card, no rail)
+     Rendered by JS only on mobile; desktop keeps the rail.
+     ============================================================ */
+  .tl-tabs { display: none; }
+  @media (max-width: 720px) {
+    .tl-tabs {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 4px 18px 14px;
+      margin: 0 -18px 24px;
+      scrollbar-width: none;
+    }
+    .tl-tabs::-webkit-scrollbar { display: none; }
+    .tl-tabs button {
+      flex: 0 0 auto;
+      scroll-snap-align: start;
+      background: transparent;
+      border: 1px solid var(--rule);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-3);
+      padding: 10px 14px;
+      cursor: pointer;
+      white-space: nowrap;
+      display: flex; align-items: center; gap: 8px;
+      border-radius: 0;
+      transition: background .2s, color .2s, border-color .2s;
+    }
+    .tl-tabs button .year {
+      font-size: 9px;
+      color: var(--ink-4);
+    }
+    .tl-tabs button.on {
+      background: var(--ink);
+      color: var(--bg);
+      border-color: var(--ink);
+    }
+    .tl-tabs button.on .year { color: color-mix(in srgb, var(--bg) 60%, transparent); }
+    .tl-tabs button::before {
+      content: '';
+      width: 6px; height: 6px; border-radius: 50%;
+      background: var(--ink-4);
+    }
+    .tl-tabs button.on::before { background: var(--accent); }
+
+    /* Hide the old desktop rail on mobile entirely */
+    .timeline-rail { display: none !important; }
+  }
+
+  /* ============================================================
+     ≤ 720px — PHONE (section-by-section redesign)
+     ============================================================ */
+  @media (max-width: 720px) {
+    section[data-section] { padding: 64px 18px; }
+    .head { padding: 12px 18px; }
+    .head .brand { font-size: 18px; }
+    .head .brand sup { display: none; }
+
+    /* ----- HERO: name + photo side-by-side, magazine byline ----- */
+    .hero { padding: 84px 18px 36px; }
+    .hero-grid { gap: 0; grid-template-columns: 1fr; }
+
+    /* name + circular photo wrapped in a flex row */
+    h1.name {
+      font-size: clamp(44px, 13.5vw, 72px);
+      line-height: 0.88;
+      display: flex; align-items: center; gap: 14px;
+      flex-wrap: wrap;
+    }
+    h1.name .name-text { display: inline-flex; flex-direction: column; }
+    h1.name .dot { width: 0.14em; height: 0.14em; }
+    h1.name .lastname { padding-left: 0; }
+
+    .hero-right {
+      order: -1; display: none; /* replaced — photo is inlined with name */
+    }
+
+    h1.name .portrait-inline {
+      display: inline-flex;
+      width: 56px; height: 56px;
+      border-radius: 50%; overflow: hidden;
+      flex-shrink: 0;
+      background: var(--bg-2);
+      filter: grayscale(100%) contrast(1.05);
+    }
+    h1.name .portrait-inline img {
+      width: 100%; height: 100%; object-fit: cover;
+      mix-blend-mode: multiply;
+    }
+    html[data-palette="ink"] h1.name .portrait-inline img { mix-blend-mode: screen; }
+
+    /* meta below */
+    .hero-meta {
+      order: 2;
+      grid-template-columns: 64px 1fr; gap: 6px 14px;
+      font-size: 10px; margin: 24px 0 0; max-width: none;
+    }
+    .hero-meta .row:not(:last-child) .k,
+    .hero-meta .row:not(:last-child) .v { padding-bottom: 6px; margin-bottom: 2px; }
+    .hero-left { display: contents; }
+
+    /* pitch row */
+    .pitch-row { margin-top: 44px; padding-top: 28px; gap: 18px; }
+    .pitch-row .pitch { font-size: 20px; line-height: 1.4; }
+    .pitch-row .right-col { margin-top: 8px; }
+    .pitch-row .right-col a { padding: 14px 0; font-size: 10.5px; }
+
+    /* ticker */
+    .ticker { margin-top: 56px; padding: 12px 0; }
+    .ticker-track { font-size: 11px; gap: 40px; }
+
+    /* ----- SECTION HEADS ----- */
+    .section-head {
+      margin-bottom: 40px; padding-bottom: 22px; gap: 14px;
+    }
+    .section-title { font-size: clamp(40px, 11vw, 56px); line-height: 0.92; }
+    .section-deck { font-size: 16px; line-height: 1.5; }
+    .section-num { margin-bottom: 8px; font-size: 10px; }
+
+    /* ----- TIMELINE: desktop rail is hidden above; tabs strip renders instead ----- */
+
+    /* Card: clean, standalone, accent left border */
+    .timeline-card {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      margin-top: 32px;
+      padding: 28px 22px;
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-left: 2px solid var(--accent);
+      min-height: 0;
+    }
+    .tc-logo { font-size: clamp(44px, 14vw, 72px); line-height: 0.9; }
+    .tc-logo em { font-size: 0.58em; }
+    .tc-role { font-size: 17px; line-height: 1.3; }
+    .tc-meta { flex-wrap: wrap; gap: 10px 20px; font-size: 10px; padding-top: 10px; }
+    .tc-deck { font-size: 16px; padding-left: 14px; }
+    .tc-bullets li { font-size: 14px; padding: 12px 0 12px 32px; }
+    .tc-bullets li::before { top: 12px; font-size: 9px; }
+    .tc-tags span { font-size: 9px; padding: 4px 8px; }
+
+    .tl-nav {
+      margin-top: 22px; padding-top: 16px;
+      font-size: 10px;
+    }
+    .tl-nav button { padding: 6px 8px; }
+
+    /* ----- CASE STUDY ----- */
+    .case-tabs { margin-bottom: 32px; }
+    .case-tabs button { padding: 14px 16px; min-width: 160px; }
+    .case-tabs button .ttl { font-size: 14px; }
+    .case-lede { font-size: 18px; line-height: 1.5; margin-bottom: 24px; }
+    .case-block { margin-bottom: 28px; }
+
+    /* schema on mobile: 3 nodes STACK VERTICALLY with arrows between */
+    .schema { padding: 22px 18px; min-height: 0; }
+    .schema-flow {
+      grid-template-columns: 1fr;
+      gap: 6px;
+    }
+    .schema-node { padding: 16px 12px; }
+    .schema-node .n-name { font-size: 20px; }
+    .schema-flow::after {
+      content: ''; display: none;
+    }
+    /* stacked arrows between nodes */
+    .schema-flow > .schema-node + .schema-node::before {
+      content: '↓';
+      display: block;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--ink-4);
+      font-size: 14px;
+      text-align: center;
+      position: absolute;
+      top: -16px; left: 50%; transform: translateX(-50%);
+      width: 20px; height: 20px; line-height: 20px;
+      background: var(--bg); z-index: 1;
+    }
+    .schema-flow > .schema-node { margin-top: 20px; }
+    .schema-flow > .schema-node:first-child { margin-top: 0; }
+    /* kill the horizontal svg between nodes */
+    .schema > svg { display: none; }
+
+    .schema-layer {
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      padding: 12px 14px;
+      grid-template-rows: auto auto;
+    }
+    .schema-layer .status {
+      grid-column: 2; justify-self: start;
+      margin-top: 6px;
+    }
+    .schema-layer .lname { font-size: 15px; }
+    .schema-layer .ldesc { font-size: 11.5px; }
+
+    .case-stats {
+      grid-template-columns: 1fr;
+      gap: 18px; margin-top: 28px; padding-top: 22px;
+    }
+    .case-stat {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 18px;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px dotted var(--rule);
+    }
+    .case-stat:last-child { border-bottom: 0; }
+    .case-stat .n { font-size: 44px; min-width: 90px; }
+    .case-stat .l { margin-top: 0; max-width: none; font-size: 10px; }
+
+    /* ----- MANIFESTO: each card feels like its own page ----- */
+    #manifeste { padding: 72px 18px; }
+    .manifesto-grid { gap: 28px; }
+    .manifesto-item { padding-top: 18px; }
+    .manifesto-item .num {
+      font-size: 28px;
+      font-family: 'Newsreader', serif;
+      font-weight: 300;
+      color: var(--accent);
+      letter-spacing: -0.02em;
+      margin-bottom: 10px;
+    }
+    .manifesto-item h3 { font-size: 30px; line-height: 1.08; margin-bottom: 14px; }
+    .manifesto-item p { font-size: 15px; }
+
+    /* ----- TOOLS carousel ----- */
+    .tools-grid { display: block; position: relative; overflow: hidden; margin: 0 -18px; padding: 0 18px; }
+    .tools-grid .tool-track { display: flex; transition: transform .45s cubic-bezier(0.2, 0.8, 0.3, 1); }
+    .tool-group { flex: 0 0 100%; padding: 0 4px; box-sizing: border-box; opacity: 1 !important; transform: none !important; }
+    .tool-group h4 { font-size: 10px; margin-bottom: 14px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .tool-group h4::after { content: attr(data-idx); font-family: 'Newsreader', serif; font-size: 20px; font-weight: 300; letter-spacing: -0.02em; color: var(--accent); }
+    .tool-group li { font-size: 17px; padding: 13px 0; }
+    .tool-group li .lvl { font-size: 9.5px; }
+    .tools-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); }
+    .tools-nav button { background: transparent; border: 1px solid var(--rule); padding: 10px 16px; cursor: pointer; font: inherit; font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--ink-2); letter-spacing: 0.1em; }
+    .tools-nav button:disabled { opacity: 0.3; cursor: not-allowed; }
+    .tools-nav .dots { display: flex; gap: 6px; align-items: center; }
+    .tools-nav .dots span { width: 6px; height: 6px; border-radius: 50%; background: var(--ink-4); transition: background .2s, width .2s; cursor: pointer; }
+    .tools-nav .dots span.on { background: var(--accent); width: 18px; border-radius: 3px; }
+
+    /* ----- CONTACT ----- */
+    #contact { padding: 72px 18px 40px; }
+    .contact-title { font-size: clamp(44px, 13vw, 68px); line-height: 0.92; margin-bottom: 36px; }
+    .contact-cols { gap: 0; padding-top: 24px; }
+    .contact-col {
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.12);
+    }
+    .contact-col:last-child { border-bottom: 0; }
+    .contact-col .label { margin-bottom: 4px; font-size: 9.5px; }
+    .contact-col a {
+      font-size: 22px; padding: 6px 0;
+      display: flex; justify-content: space-between; align-items: baseline;
+      gap: 10px;
+    }
+    .contact-col a::before { display: none; }
+    .contact-col a:hover { padding-left: 0; }
+    .contact-col a::after {
+      content: '→'; font-family: 'JetBrains Mono', monospace;
+      font-size: 14px; opacity: 0.5;
+    }
+    footer.foot {
+      margin-top: 48px; padding-top: 24px;
+      flex-direction: column; gap: 14px;
+      align-items: flex-start; text-align: left;
+    }
+    footer.foot .colophon { font-size: 12px; line-height: 1.6; }
+
+    /* ----- TWEAKS: bottom sheet ----- */
+    #tweaks {
+      left: 12px; right: 12px; bottom: 12px;
+      width: auto;
+    }
+  }
+
+  /* ============================================================
+     ≤ 400px — VERY NARROW
+     ============================================================ */
+  @media (max-width: 400px) {
+    .hero-meta { grid-template-columns: 1fr; gap: 2px; }
+    .hero-meta .k { color: var(--ink-4); font-size: 9px; }
+    .hero-meta .v { margin-bottom: 6px; font-size: 10px; }
+    .hero-meta .row:not(:last-child) .k,
+    .hero-meta .row:not(:last-child) .v { border-bottom: 0; padding-bottom: 2px; }
+    .tc-meta { flex-direction: column; gap: 4px; }
+  }
+
+  /* reveal */
+  .rv { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s cubic-bezier(0.2, 0.8, 0.3, 1); }
+  .rv.on { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<!-- ========== HEADER ========== -->
+<header class="head">
+  <button class="menu-btn" id="menuBtn" aria-label="Menu" style="display:none"><i></i><i></i><i></i></button>
+  <div class="brand">Wail Menouni<sup>FR/001</sup></div>
+  <nav>
+    <a href="#index" data-nav>Index</a>
+    <a href="#timeline" data-nav>Timeline</a>
+    <a href="#projet" data-nav>Projet</a>
+    <a href="#outils" data-nav>Outils</a>
+    <a href="#contact" data-nav>Contact</a>
+  </nav>
+  <div class="right">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button data-lang="fr" class="on">FR</button>
+      <button data-lang="en">EN</button>
+    </div>
+  </div>
+</header>
+
+<!-- Mobile menu overlay -->
+<div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
+  <nav>
+    <a href="#index" data-mob>Index <em>01</em></a>
+    <a href="#timeline" data-mob>Timeline <em>02</em></a>
+    <a href="#projet" data-mob>Projet <em>03</em></a>
+    <a href="#manifeste" data-mob>Manifeste <em>04</em></a>
+    <a href="#outils" data-mob>Outils <em>05</em></a>
+    <a href="#contact" data-mob>Contact <em>06</em></a>
+  </nav>
+  <div class="bottom">
+    <span>Nantes · FR</span>
+    <a href="mailto:menouniwail@gmail.com" style="text-decoration:none;color:var(--accent)">Écrire →</a>
+  </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" data-section id="index" data-screen-label="01 Index">
+  <div class="hero-grid">
+    <div class="hero-left rv">
+      <div class="hero-meta">
+        <div class="row"><div class="k">N°</div><div class="v">001 / Portfolio / 2026</div></div>
+        <div class="row"><div class="k" data-i18n="meta.role">Rôle</div><div class="v" data-i18n="meta.role.v">Chargé de projet digital · Marketing &amp; Web</div></div>
+        <div class="row"><div class="k" data-i18n="meta.loc">Base</div><div class="v">Nantes, France · 47.2184° N, 1.5536° W</div></div>
+        <div class="row"><div class="k" data-i18n="meta.status">Statut</div><div class="v" data-i18n="meta.status.v">Disponible · Mobilité hybride</div></div>
+      </div>
+      <h1 class="name">
+        <span class="portrait-inline" aria-hidden="true"><img src="assets/wail.jpeg" alt=""></span>
+        <span class="name-text">Wail<span class="dot"></span><span class="lastname">Menouni.</span></span>
+      </h1>
+    </div>
+    <div class="hero-right rv">
+      <div class="portrait">
+        <img src="assets/wail.jpeg" alt="Wail Menouni">
+      </div>
+      <div class="portrait-caption">
+        <span data-i18n="portrait.caption">Fig. 01 · l'auteur, Nantes 2026</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- pitch row -->
+  <div class="pitch-row rv">
+    <div class="label" data-i18n="pitch.label">A01 / Proposition</div>
+    <p class="pitch" data-i18n="pitch.body">
+      Je pilote des <em>environnements web</em> à fort enjeu, là où se croisent <em>marketing, DSI, cybersécurité</em> et <span class="mark">agences externes</span>. Mon métier&nbsp;: traduire entre ces mondes pour livrer des plateformes <em>fiables, conformes et durables</em>.
+    </p>
+    <div class="right-col">
+      <a href="assets/CV.pdf" target="_blank" rel="noopener">
+        <span data-i18n="cta.cv">Télécharger le CV (PDF)</span>
+        <span class="arrow">↓</span>
+      </a>
+      <a href="#contact">
+        <span data-i18n="cta.contact">Écrivez-moi</span>
+        <span class="arrow">→</span>
+      </a>
+      <a href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener">
+        <span>LinkedIn</span>
+        <span class="arrow">↗</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- ticker -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track" id="ticker">
+      <!-- populated by JS for seamless loop -->
+    </div>
+  </div>
+</section>
+
+<!-- ========== TIMELINE (CENTERPIECE) ========== -->
+<section data-section id="timeline" data-screen-label="02 Timeline">
+  <div class="section-head">
+    <div class="rv">
+      <span class="section-num">§ 02 / Timeline</span>
+      <h2 class="section-title" data-i18n="tl.title">Un parcours, <em>cinq chapitres</em>.</h2>
+    </div>
+    <p class="section-deck rv" data-i18n="tl.deck">
+      Grands groupes français, une école à Bergen, un passage par le marketing, un atterrissage dans la gouvernance web. Cliquez sur un point, chaque étape est un chapitre.
+    </p>
+  </div>
+
+  <div class="timeline-stage">
+    <div class="tl-tabs" id="tl-tabs" role="tablist"></div>
+    <div class="timeline-rail rv" id="rail">
+      <div class="timeline-years">
+        <span>2021</span><span>2022</span><span>2023</span><span>2024</span><span>2025</span><span>2026</span>
+      </div>
+      <!-- nodes are injected by JS so we can compute positions & order -->
+    </div>
+
+    <div class="timeline-card rv" id="tl-card"></div>
+
+    <div class="tl-nav">
+      <button id="tl-prev">← <span data-i18n="tl.prev">Précédent</span></button>
+      <div class="counter"><b id="tl-cur">01</b> / <span id="tl-total">05</span></div>
+      <button id="tl-next"><span data-i18n="tl.next">Suivant</span> →</button>
+    </div>
+  </div>
+</section>
+
+<!-- ========== PROJECT CASE STUDY ========== -->
+<section data-section id="projet" data-screen-label="03 Projet">
+  <div class="section-head">
+    <div class="rv">
+      <span class="section-num">§ 03 / Études de cas</span>
+      <h2 class="section-title" data-i18n="case.title">Quatre terrains, <em>une même méthode.</em></h2>
+    </div>
+    <p class="section-deck rv" data-i18n="case.deck">
+      Quatre projets que je peux vraiment défendre, du parc web international au mémoire de recherche. À chaque fois, le même réflexe&nbsp;: cartographier, prioriser, livrer sans casser ce qui tourne déjà.
+    </p>
+  </div>
+
+  <!-- Case tabs -->
+  <div class="case-tabs rv" id="case-tabs" role="tablist">
+    <button class="on" data-case="0">
+      <span class="num">01 / Sécurité</span>
+      <span class="ttl" data-i18n="ct.0">Parc web international</span>
+    </button>
+    <button data-case="1">
+      <span class="num">02 / Conformité</span>
+      <span class="ttl" data-i18n="ct.1">RGPD · A11y · Éco-conception</span>
+    </button>
+    <button data-case="2">
+      <span class="num">03 / Automatisation</span>
+      <span class="ttl" data-i18n="ct.2">Power Automate · SharePoint</span>
+    </button>
+    <button data-case="3">
+      <span class="num">04 / Recherche</span>
+      <span class="ttl" data-i18n="ct.3">IA &amp; expérience client</span>
+    </button>
+  </div>
+
+  <!-- ========== CASE 01 — Sécurité parc ========== -->
+  <div class="case-panel on" id="case-0">
+  <div class="case-grid">
+    <div class="rv">
+      <p class="case-lede" data-i18n="case0.lede">
+        Quand je suis arrivé chez Eurial, la question n'était pas <em>«&nbsp;faut-il sécuriser nos sites ?&nbsp;»</em> mais <strong>par où commencer</strong>. J'ai pris la casquette de chef d'orchestre entre la <strong>cybersécurité groupe</strong>, les <strong>agences web</strong>, la <strong>DSI infrastructure</strong> et les <strong>équipes marketing</strong> qui ne voulaient surtout pas de coupure.
+      </p>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case0.role">Mon rôle</div>
+        <p data-i18n="case0.role.body">Chargé de projet transverse&nbsp;: cadrage, priorisation, arbitrages, reporting COPIL. Aucune ligne de code, mais chaque décision passait par moi avant d'arriver chez l'hébergeur.</p>
+      </div>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case0.approach">Approche</div>
+        <p data-i18n="case0.approach.body">Cartographier l'existant (sites, CMS, versions, criticité), définir un niveau de sécurité cible par marque, puis dérouler en vagues pour absorber la charge des agences sans geler les campagnes marketing.</p>
+      </div>
+
+      <div class="case-stats">
+        <div class="case-stat">
+          <div class="n">40<sup>+</sup></div>
+          <div class="l" data-i18n="case0.s1">Sites web audités et classés par criticité</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">0</div>
+          <div class="l" data-i18n="case0.s2">Coupure de service sur la bascule WAF</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">RGAA</div>
+          <div class="l" data-i18n="case0.s3">Audit accessibilité niveau AA conduit en parallèle</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="schema">
+        <div class="schema-title">
+          <span data-i18n="schema0.title">Schéma / Chaîne de responsabilité</span>
+          <span>Fig. 02</span>
+        </div>
+        <div class="schema-flow">
+          <div class="schema-node">
+            <div class="n-name" data-i18n="schema0.n1">Marketing</div>
+            <div class="n-role" data-i18n="schema0.n1r">Les marques · Besoins</div>
+          </div>
+          <div class="schema-node accent">
+            <div class="n-name">Wail</div>
+            <div class="n-role" data-i18n="schema0.n2r">Chargé de projet · Pivot</div>
+          </div>
+          <div class="schema-node">
+            <div class="n-name" data-i18n="schema0.n3">Cyber + DSI</div>
+            <div class="n-role" data-i18n="schema0.n3r">Exécution technique</div>
+          </div>
+        </div>
+        <svg width="100%" height="28" viewBox="0 0 600 28" style="margin-top:-1px" preserveAspectRatio="none">
+          <line x1="100" y1="14" x2="300" y2="14" stroke="currentColor" stroke-dasharray="3 4" stroke-width="1" opacity="0.35"/>
+          <line x1="300" y1="14" x2="500" y2="14" stroke="currentColor" stroke-dasharray="3 4" stroke-width="1" opacity="0.35"/>
+        </svg>
+
+        <div class="schema-layers">
+          <div class="schema-layer done">
+            <div class="num">01</div>
+            <div>
+              <div class="lname" data-i18n="layer0.1">Cartographie du parc</div>
+              <span class="ldesc" data-i18n="layer0.1d">Inventaire CMS, versions, criticité, dépendances agences</span>
+            </div>
+            <div class="status" data-i18n="status.done">Livré</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">02</div>
+            <div>
+              <div class="lname" data-i18n="layer0.2">Reverse proxy · WAF</div>
+              <span class="ldesc" data-i18n="layer0.2d">Bascule progressive par vague, sans coupure marketing</span>
+            </div>
+            <div class="status" data-i18n="status.done">Livré</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">03</div>
+            <div>
+              <div class="lname" data-i18n="layer0.3">Serveurs durcis</div>
+              <span class="ldesc" data-i18n="layer0.3d">Migration vers infra plus robuste, MAJ maîtrisées</span>
+            </div>
+            <div class="status" data-i18n="status.done">Livré</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">04</div>
+            <div>
+              <div class="lname" data-i18n="layer0.4">Audit RGAA · Accessibilité</div>
+              <span class="ldesc" data-i18n="layer0.4d">Diagnostic AA, plan de remédiation, suivi agences</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">05</div>
+            <div>
+              <div class="lname" data-i18n="layer0.5">Gouvernance pérenne</div>
+              <span class="ldesc" data-i18n="layer0.5d">Comités récurrents, référentiels, docs vivantes</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ========== CASE 02 — Conformité ========== -->
+  <div class="case-panel" id="case-1">
+  <div class="case-grid">
+    <div class="rv">
+      <p class="case-lede" data-i18n="case1.lede">
+        Sécuriser, c'est une chose. <em>Rendre un parc web responsable</em>, c'en est une autre. Sur le même périmètre Eurial, j'ai ouvert un second chantier&nbsp;: <strong>RGPD, accessibilité, éco-conception</strong>. Trois exigences que les marques regardaient encore comme des audits techniques séparés.
+      </p>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case1.role">Mon rôle</div>
+        <p data-i18n="case1.role.body">Traduire des audits techniques en plans d'action lisibles pour les métiers, les agences et la DSI. Sortir du «&nbsp;rapport&nbsp;» pour entrer dans le pilotage&nbsp;: priorités, échéances, responsables.</p>
+      </div>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case1.approach">Approche</div>
+        <p data-i18n="case1.approach.body">Analyser chaque site sous quatre angles : cookies (Didomi), accessibilité (RGAA/WCAG), éco-conception (EcoIndex), sécurité (SecurityHeaders), puis bâtir des <strong>directives web communes</strong> que tout le monde accepte&nbsp;: marques, agences, DSI.</p>
+      </div>
+
+      <div class="case-stats">
+        <div class="case-stat">
+          <div class="n">4<sup>×</sup></div>
+          <div class="l" data-i18n="case1.s1">Référentiels croisés sur chaque site</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">AA</div>
+          <div class="l" data-i18n="case1.s2">Niveau accessibilité visé sur les sites prioritaires</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">1</div>
+          <div class="l" data-i18n="case1.s3">Cadre de directives web partagé pour le groupe</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="schema">
+        <div class="schema-title">
+          <span data-i18n="schema1.title">Schéma / Quatre exigences, un cadre</span>
+          <span>Fig. 03</span>
+        </div>
+
+        <div class="schema-layers" style="margin-top:0">
+          <div class="schema-layer">
+            <div class="num">RGPD</div>
+            <div>
+              <div class="lname" data-i18n="layer1.1">Cookies &amp; consentement</div>
+              <span class="ldesc" data-i18n="layer1.1d">Didomi · cartographie des traceurs · politique groupe</span>
+            </div>
+            <div class="status" data-i18n="status.audit">Audit</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">A11y</div>
+            <div>
+              <div class="lname" data-i18n="layer1.2">Accessibilité RGAA · WCAG</div>
+              <span class="ldesc" data-i18n="layer1.2d">Diagnostic AA · plan de remédiation · suivi agences</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">Éco</div>
+            <div>
+              <div class="lname" data-i18n="layer1.3">Éco-conception web</div>
+              <span class="ldesc" data-i18n="layer1.3d">EcoIndex · réduction volumétrie · sobriété assets</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">Sec</div>
+            <div>
+              <div class="lname" data-i18n="layer1.4">Headers de sécurité</div>
+              <span class="ldesc" data-i18n="layer1.4d">SecurityHeaders · CSP · HSTS · cohérence inter-marques</span>
+            </div>
+            <div class="status" data-i18n="status.done">Livré</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">Gov</div>
+            <div>
+              <div class="lname" data-i18n="layer1.5">Directives web groupe</div>
+              <span class="ldesc" data-i18n="layer1.5d">Cadre commun pour métiers, agences et DSI</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ========== CASE 03 — Automatisation ========== -->
+  <div class="case-panel" id="case-2">
+  <div class="case-grid">
+    <div class="rv">
+      <p class="case-lede" data-i18n="case2.lede">
+        À côté du web, il y a tout ce qui <em>tourne en silence</em>&nbsp;: fichiers à classer, dossiers à créer, validations à transmettre. J'ai conçu des flux <strong>Power Automate</strong> branchés sur <strong>SharePoint</strong> pour fiabiliser ces traitements récurrents, sans transformer la DSI en équipe de support.
+      </p>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case2.role">Mon rôle</div>
+        <p data-i18n="case2.role.body">Concepteur des flux&nbsp;: cadrage du besoin métier, modélisation, mise en place, gestion des erreurs et passation. L'objectif n'est jamais l'automatisation pour l'automatisation. C'est la robustesse.</p>
+      </div>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case2.approach">Approche</div>
+        <p data-i18n="case2.approach.body">Identifier les tâches manuelles à fort volume et faible valeur ajoutée, puis dérouler&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu'un d'autre que moi.</p>
+      </div>
+
+      <div class="case-stats">
+        <div class="case-stat">
+          <div class="n">×N</div>
+          <div class="l" data-i18n="case2.s1">Flux récurrents fiabilisés</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">0</div>
+          <div class="l" data-i18n="case2.s2">Doublon toléré dans les traitements par lots</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">↻</div>
+          <div class="l" data-i18n="case2.s3">Logs et reprise sur erreur intégrés à chaque flux</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="schema">
+        <div class="schema-title">
+          <span data-i18n="schema2.title">Schéma / Anatomie d'un flux</span>
+          <span>Fig. 04</span>
+        </div>
+
+        <div class="schema-layers" style="margin-top:0">
+          <div class="schema-layer done">
+            <div class="num">01</div>
+            <div>
+              <div class="lname" data-i18n="layer2.1">Déclencheur</div>
+              <span class="ldesc" data-i18n="layer2.1d">Dépôt fichier · planning · approbation reçue</span>
+            </div>
+            <div class="status" data-i18n="status.done">Trigger</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">02</div>
+            <div>
+              <div class="lname" data-i18n="layer2.2">Contrôle &amp; déduplication</div>
+              <span class="ldesc" data-i18n="layer2.2d">Vérification format, hash, doublon, métadonnées</span>
+            </div>
+            <div class="status" data-i18n="status.done">Check</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">03</div>
+            <div>
+              <div class="lname" data-i18n="layer2.3">Traitement par lots</div>
+              <span class="ldesc" data-i18n="layer2.3d">Création dossiers SharePoint · classement · routage</span>
+            </div>
+            <div class="status" data-i18n="status.done">Process</div>
+          </div>
+          <div class="schema-layer done">
+            <div class="num">04</div>
+            <div>
+              <div class="lname" data-i18n="layer2.4">Gestion d'erreurs</div>
+              <span class="ldesc" data-i18n="layer2.4d">Capture, log, alerte, file d'attente de reprise</span>
+            </div>
+            <div class="status" data-i18n="status.done">Catch</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">05</div>
+            <div>
+              <div class="lname" data-i18n="layer2.5">Passation</div>
+              <span class="ldesc" data-i18n="layer2.5d">Documentation, schéma, transfert au support DSI</span>
+            </div>
+            <div class="status" data-i18n="status.run">En run</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+
+  <!-- ========== CASE 04 — Recherche IA ========== -->
+  <div class="case-panel" id="case-3">
+  <div class="case-grid">
+    <div class="rv">
+      <p class="case-lede" data-i18n="case3.lede">
+        Mémoire professionnel à <strong>Audencia</strong>&nbsp;: <em>l'IA conversationnelle peut-elle vraiment améliorer l'expérience client en e-commerce</em>, ou reste-t-elle limitée dès qu'il faut gérer la confiance, l'attention et les attentes implicites&nbsp;?
+      </p>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case3.role">Mon rôle</div>
+        <p data-i18n="case3.role.body">Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l'étude, conduite des entretiens, analyse, rédaction. Une posture de chercheur, pas de prescripteur.</p>
+      </div>
+
+      <div class="case-block">
+        <div class="label" data-i18n="case3.approach">Approche</div>
+        <p data-i18n="case3.approach.body">Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l'information, temps d'attente, confiance, attention</strong>. Lire les résultats sans complaisance pour la techno : l'IA n'est pas un point d'arrivée, c'est un outil.</p>
+      </div>
+
+      <div class="case-stats">
+        <div class="case-stat">
+          <div class="n">5</div>
+          <div class="l" data-i18n="case3.s1">Dimensions analysées dans la perception client</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">Qual.</div>
+          <div class="l" data-i18n="case3.s2">Méthodologie qualitative · entretiens approfondis</div>
+        </div>
+        <div class="case-stat">
+          <div class="n">2024</div>
+          <div class="l" data-i18n="case3.s3">Soutenu à Audencia · Master Marketing</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="rv">
+      <div class="schema">
+        <div class="schema-title">
+          <span data-i18n="schema3.title">Schéma / Cadre d'analyse</span>
+          <span>Fig. 05</span>
+        </div>
+        <div class="schema-flow">
+          <div class="schema-node">
+            <div class="n-name" data-i18n="schema3.n1">Chatbot IA</div>
+            <div class="n-role" data-i18n="schema3.n1r">Disponibilité · vitesse</div>
+          </div>
+          <div class="schema-node accent">
+            <div class="n-name" data-i18n="schema3.n2">Client</div>
+            <div class="n-role" data-i18n="schema3.n2r">Perception · confiance</div>
+          </div>
+          <div class="schema-node">
+            <div class="n-name" data-i18n="schema3.n3">Conseiller</div>
+            <div class="n-role" data-i18n="schema3.n3r">Empathie · nuance</div>
+          </div>
+        </div>
+
+        <div class="schema-layers">
+          <div class="schema-layer">
+            <div class="num">D1</div>
+            <div>
+              <div class="lname" data-i18n="layer3.1">Satisfaction</div>
+              <span class="ldesc" data-i18n="layer3.1d">Au-delà de la résolution&nbsp;: ressenti global du parcours</span>
+            </div>
+            <div class="status" data-i18n="status.dim">Dimension</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">D2</div>
+            <div>
+              <div class="lname" data-i18n="layer3.2">Qualité de l'information</div>
+              <span class="ldesc" data-i18n="layer3.2d">Justesse, contextualisation, pertinence</span>
+            </div>
+            <div class="status" data-i18n="status.dim">Dimension</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">D3</div>
+            <div>
+              <div class="lname" data-i18n="layer3.3">Temps d'attente</div>
+              <span class="ldesc" data-i18n="layer3.3d">Perçu vs. réel · seuils d'acceptabilité</span>
+            </div>
+            <div class="status" data-i18n="status.dim">Dimension</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">D4</div>
+            <div>
+              <div class="lname" data-i18n="layer3.4">Confiance</div>
+              <span class="ldesc" data-i18n="layer3.4d">Sur la marque, la donnée, la décision rendue</span>
+            </div>
+            <div class="status" data-i18n="status.dim">Dimension</div>
+          </div>
+          <div class="schema-layer">
+            <div class="num">D5</div>
+            <div>
+              <div class="lname" data-i18n="layer3.5">Attention</div>
+              <span class="ldesc" data-i18n="layer3.5d">Capacité du système à maintenir l'engagement</span>
+            </div>
+            <div class="status" data-i18n="status.dim">Dimension</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ========== MANIFESTO / 3 THINGS ========== -->
+<section data-section id="manifeste" data-screen-label="04 Manifeste">
+  <div class="section-head">
+    <div class="rv">
+      <span class="section-num">§ 04 / Manifeste</span>
+      <h2 class="section-title" data-i18n="mani.title">Trois choses <em>à retenir.</em></h2>
+    </div>
+    <p class="section-deck rv" data-i18n="mani.deck">
+      Si vous n'aviez qu'une minute avant de refermer cette page, voici ce que vous pouvez attendre de moi.
+    </p>
+  </div>
+
+  <div class="manifesto-grid">
+    <div class="manifesto-item rv">
+      <span class="num">01</span>
+      <h3 data-i18n="m1.h">Je traduis entre <em>deux mondes</em>.</h3>
+      <p data-i18n="m1.p">Marketing et DSI ne parlent pas la même langue. Je passe ma journée à traduire des besoins business en décisions techniques, et l'inverse, sans perdre personne en route. C'est là que j'apporte le plus de valeur.</p>
+    </div>
+    <div class="manifesto-item rv">
+      <span class="num">02</span>
+      <h3 data-i18n="m2.h">Rigueur <em>sans rigidité</em>.</h3>
+      <p data-i18n="m2.p">Gouvernance, documentation, référentiels : oui, mais servis tièdes, sans bureaucratie : le but reste de livrer. J'aime les process qui aident l'équipe, pas ceux qu'on subit.</p>
+    </div>
+    <div class="manifesto-item rv">
+      <span class="num">03</span>
+      <h3 data-i18n="m3.h">Profil <em>pluriel</em>.</h3>
+      <p data-i18n="m3.p">Audencia, EM Strasbourg, NHH Bergen. Banques, agro-alimentaire, industrie auto. Trois langues. Je me pose vite dans un contexte nouveau ; c'est un réflexe, pas un argument de CV.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ========== TOOLBELT ========== -->
+<section data-section id="outils" data-screen-label="05 Outils">
+  <div class="section-head">
+    <div class="rv">
+      <span class="section-num">§ 05 / Outils &amp; terrains</span>
+      <h2 class="section-title" data-i18n="tools.title">Ce que j'utilise <em>au quotidien.</em></h2>
+    </div>
+    <p class="section-deck rv" data-i18n="tools.deck">
+      Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et le niveau de confort que j'y ai.
+    </p>
+  </div>
+
+  <div class="tools-grid" id="tools-grid">
+   <div class="tool-track" id="tool-track">
+    <div class="tool-group rv">
+      <h4 data-i18n="tg.1">Pilotage &amp; gouvernance</h4>
+      <ul>
+        <li class="primary"><span data-i18n="tg.1.a">Gestion de projet web</span><span class="lvl">Lead</span></li>
+        <li class="primary"><span data-i18n="tg.1.b">Gouvernance multi-sites</span><span class="lvl">Lead</span></li>
+        <li><span data-i18n="tg.1.c">Coordination agences</span><span class="lvl">Daily</span></li>
+        <li><span data-i18n="tg.1.d">Reporting COPIL</span><span class="lvl">Daily</span></li>
+        <li><span>Jira · Notion · Teams</span><span class="lvl">Daily</span></li>
+      </ul>
+    </div>
+
+    <div class="tool-group rv">
+      <h4 data-i18n="tg.2">Conformité web</h4>
+      <ul>
+        <li class="primary"><span>RGAA 4.1 · WCAG 2.1</span><span class="lvl">Lead</span></li>
+        <li class="primary"><span data-i18n="tg.2.a">Audits accessibilité</span><span class="lvl">Lead</span></li>
+        <li><span data-i18n="tg.2.b">Éco-conception web</span><span class="lvl">Hands-on</span></li>
+        <li><span>RGPD · Cookies</span><span class="lvl">Hands-on</span></li>
+        <li><span>Sécurité web · WAF</span><span class="lvl">Coordination</span></li>
+      </ul>
+    </div>
+
+    <div class="tool-group rv">
+      <h4 data-i18n="tg.3">Web &amp; stack</h4>
+      <ul>
+        <li class="primary"><span>WordPress</span><span class="lvl">Hands-on</span></li>
+        <li><span>HTML · CSS</span><span class="lvl">Hands-on</span></li>
+        <li><span>SharePoint · Power Automate</span><span class="lvl">Hands-on</span></li>
+        <li><span>GA4 · Matomo</span><span class="lvl">Daily</span></li>
+        <li><span>Python</span><span class="lvl">Notions</span></li>
+      </ul>
+    </div>
+
+    <div class="tool-group rv">
+      <h4 data-i18n="tg.4">Marketing &amp; UX</h4>
+      <ul>
+        <li class="primary"><span>SEO · SEA</span><span class="lvl">Hands-on</span></li>
+        <li><span>Figma · Wireframes</span><span class="lvl">Hands-on</span></li>
+        <li><span>CRM · Lifecycle</span><span class="lvl">Hands-on</span></li>
+        <li><span data-i18n="tg.4.a">Analyse de données marketing</span><span class="lvl">Hands-on</span></li>
+        <li><span>FR · EN · AR</span><span class="lvl">C2 / C1 / L.M.</span></li>
+      </ul>
+    </div>
+   </div>
+   <div class="tools-nav" id="tools-nav">
+     <button id="tools-prev" aria-label="Prev">←</button>
+     <div class="dots" id="tools-dots"></div>
+     <button id="tools-next" aria-label="Next">→</button>
+   </div>
+  </div>
+</section>
+
+<!-- ========== CONTACT ========== -->
+<section data-section id="contact" data-screen-label="06 Contact">
+  <div class="contact-grid">
+    <h2 class="contact-title rv" data-i18n="contact.title">
+      La suite, <em>c'est peut-être avec vous.</em>
+    </h2>
+
+    <div class="contact-cols">
+      <div class="contact-col rv">
+        <div class="label" data-i18n="contact.mail">Courriel</div>
+        <a href="mailto:menouniwail@gmail.com">menouniwail@gmail.com</a>
+      </div>
+      <div class="contact-col rv">
+        <div class="label" data-i18n="contact.phone">Téléphone</div>
+        <a href="tel:+33785858485">+33 7 85 85 84 85</a>
+      </div>
+      <div class="contact-col rv">
+        <div class="label">Linkedin</div>
+        <a href="https://linkedin.com/in/wail-menouni" target="_blank" rel="noopener">/wail-menouni</a>
+      </div>
+    </div>
+
+    <footer class="foot">
+      <div class="colophon" data-i18n="colophon">
+        Portfolio composé en <em>Newsreader</em> &amp; <em>Instrument Serif</em>, complété de JetBrains Mono pour les interstices techniques. Fait à la main à Nantes, 2026.
+      </div>
+      <div>© W.M. · <span id="year">2026</span></div>
+    </footer>
+  </div>
+</section>
+
+<!-- ========== SIDE PROGRESS ========== -->
+<nav class="side-prog" aria-label="Progress">
+  <a href="#index" data-side><span class="tick"></span>01 · Index</a>
+  <a href="#timeline" data-side><span class="tick"></span>02 · Timeline</a>
+  <a href="#projet" data-side><span class="tick"></span>03 · Projet</a>
+  <a href="#manifeste" data-side><span class="tick"></span>04 · Manifeste</a>
+  <a href="#outils" data-side><span class="tick"></span>05 · Outils</a>
+  <a href="#contact" data-side><span class="tick"></span>06 · Contact</a>
+</nav>
+
+<!-- ========== TWEAKS PANEL ========== -->
+<div id="tweaks" aria-hidden="true">
+  <header>
+    <b>Tweaks</b>
+    <span>v1</span>
+  </header>
+  <div class="group">
+    <label>Palette</label>
+    <div class="swatches" id="sw-palette">
+      <div class="sw" data-palette="cream" style="background:#F4F1E8;border-color:#C84B31"></div>
+      <div class="sw" data-palette="paper" style="background:#FAFAF7"></div>
+      <div class="sw" data-palette="ink" style="background:#18181A"></div>
+      <div class="sw" data-palette="forest" style="background:#F2EFE8;border-color:#2E5D4E"></div>
+    </div>
+  </div>
+  <div class="group">
+    <label>Timeline layout</label>
+    <div class="chips" id="sw-timeline">
+      <button data-timeline="horizontal">Horizontal</button>
+      <button data-timeline="vertical">Vertical</button>
+    </div>
+  </div>
+  <div class="group">
+    <label>Serif display</label>
+    <div class="chips" id="sw-serif">
+      <button data-serif="newsreader">Newsreader</button>
+      <button data-serif="instrument">Instrument</button>
+    </div>
+  </div>
+  <div class="group">
+    <label>Portrait</label>
+    <div class="chips" id="sw-photo">
+      <button data-photo="true">Photo</button>
+      <button data-photo="false">Initials</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ===========================================================
+   DATA: timeline chapters + i18n
+   =========================================================== */
+const chapters = [
+  {
+    slug: 'eurial',
+    when: { fr: 'Juil. 2024 → Déc. 2025', en: 'Jul 2024 → Dec 2025' },
+    date: { start: 2024.5, end: 2025.9 },
+    company: 'Eurial',
+    sub: { fr: 'International', en: 'International' },
+    group: { fr: 'Groupe Agrial · Nantes', en: 'Agrial Group · Nantes' },
+    role: { fr: 'Chargé de projet digital', en: 'Digital project lead' },
+    deck: {
+      fr: 'Ma dernière escale : piloter le <em>run web</em> d\'un acteur laitier international : sécurité, accessibilité, éco-conception, en coordonnant DSI, cybersécurité et agences.',
+      en: 'Most recent stop: running the <em>web run</em> for an international dairy player: security, accessibility, sustainability, coordinating IT, cybersecurity and agencies.'
+    },
+    bullets: {
+      fr: [
+        'Pilotage run de 40+ sites web : priorisation, arbitrages, comités récurrents.',
+        'Mise en place d\'un reverse proxy / WAF en vagues, sans coupure marketing.',
+        'Audits RGAA AA et plans de remédiation suivis avec les agences.',
+        'Pivot entre cybersécurité groupe, DSI, hébergeur et directions marketing.'
+      ],
+      en: [
+        'Running 40+ websites: prioritisation, trade-offs, recurring committees.',
+        'Rolled out a reverse proxy / WAF in waves, with zero marketing downtime.',
+        'RGAA AA audits and remediation plans tracked with each agency.',
+        'Pivot between group cybersecurity, IT, hosting and marketing directors.'
+      ]
+    },
+    tags: ['Gouvernance web', 'WCAG', 'Cybersécurité', 'WordPress']
+  },
+  {
+    slug: 'fev',
+    when: { fr: 'Mai → Oct. 2023', en: 'May → Oct 2023' },
+    date: { start: 2023.4, end: 2023.83 },
+    company: 'FEV',
+    sub: { fr: 'Test Systems', en: 'Test Systems' },
+    group: { fr: 'Industrie auto · Trappes', en: 'Automotive · Trappes' },
+    role: { fr: 'Chargé de marketing digital', en: 'Digital marketing associate' },
+    deck: {
+      fr: 'Refonte d\'un site B2B industriel et structuration d\'un intranet SharePoint pour une équipe qui ne trouvait plus ses propres fichiers.',
+      en: 'Rebuilt a B2B industrial website and restructured a SharePoint intranet for a team that had lost track of its own files.'
+    },
+    bullets: {
+      fr: [
+        'Refonte du site web : wireframes, prototypes, optimisation UX et SEO.',
+        'Structuration de l\'intranet SharePoint et mise en place d\'un CRM pragmatique.',
+        'Premier terrain de coordination avec des ingénieurs non-marketing.'
+      ],
+      en: [
+        'Website revamp: wireframes, prototypes, UX and SEO optimisation.',
+        'Restructured the SharePoint intranet and set up a pragmatic CRM.',
+        'First real ground of coordinating with non-marketing engineers.'
+      ]
+    },
+    tags: ['UX / UI', 'SharePoint', 'SEO', 'B2B']
+  },
+  {
+    slug: 'ca',
+    when: { fr: 'Jan. → Juil. 2022', en: 'Jan → Jul 2022' },
+    date: { start: 2022.0, end: 2022.55 },
+    company: 'Crédit Agricole',
+    sub: { fr: 'S.A.', en: 'S.A.' },
+    group: { fr: 'Banque · Montrouge', en: 'Banking · Montrouge' },
+    role: { fr: 'Assistant marketing stratégique', en: 'Strategic marketing assistant' },
+    deck: {
+      fr: 'Analyse de marchés et données Open Data pour alimenter les décisions stratégiques du groupe.',
+      en: 'Market and Open Data analysis to feed the group\'s strategic decisions.'
+    },
+    bullets: {
+      fr: [
+        'Analyses sectorielles et études de marché structurées pour la direction.',
+        'Exploitation de bases Open Data et synthèse en notes courtes et actionnables.'
+      ],
+      en: [
+        'Sector analyses and structured market studies for the leadership team.',
+        'Open Data exploration distilled into short, actionable notes.'
+      ]
+    },
+    tags: ['Stratégie', 'Open Data', 'Banque']
+  },
+  {
+    slug: 'sg',
+    when: { fr: 'Juil. → Déc. 2021', en: 'Jul → Dec 2021' },
+    date: { start: 2021.55, end: 2021.95 },
+    company: 'Société Générale',
+    sub: { fr: 'Partenariats', en: 'Partnerships' },
+    group: { fr: 'Banque · Vincennes', en: 'Banking · Vincennes' },
+    role: { fr: 'Assistant marketing & partenariats', en: 'Marketing & partnerships assistant' },
+    deck: {
+      fr: 'Premier pas en entreprise : tableaux de bord, reporting et veille concurrentielle. L\'école du chiffre au service de la décision.',
+      en: 'First corporate step: dashboards, reporting and competitive intelligence. The school of numbers serving decisions.'
+    },
+    bullets: {
+      fr: [
+        'Tableaux de bord marketing et reporting mensuels.',
+        'Veille concurrentielle et notes de synthèse pour les partenariats.'
+      ],
+      en: [
+        'Marketing dashboards and monthly reporting.',
+        'Competitive intelligence and briefing notes for partnerships.'
+      ]
+    },
+    tags: ['Reporting', 'Veille', 'Banque']
+  },
+  {
+    slug: 'nhh',
+    when: { fr: '2020 — 2023', en: '2020 — 2023' },
+    date: { start: 2021.15, end: 2021.15 },
+    company: 'Audencia · EM · NHH',
+    sub: { fr: 'Parcours académique', en: 'Academic path' },
+    group: { fr: 'Nantes · Strasbourg · Bergen', en: 'Nantes · Strasbourg · Bergen' },
+    role: { fr: 'Mastère Stratégie Digitale & Data · M2 Marketing Stratégique · M1 NHH Norvège', en: 'MSc Digital Strategy & Data · M2 Strategic Marketing · M1 NHH Norway' },
+    deck: {
+      fr: 'Trois écoles, trois pays, un fil rouge : <em>le numérique comme levier business</em>. Audencia pour la stratégie digitale et la data, EM Strasbourg pour le marketing stratégique, NHH Bergen pour l\'ouverture internationale.',
+      en: 'Three schools, three countries, one thread: <em>digital as a business lever</em>. Audencia for digital strategy and data, EM Strasbourg for strategic marketing, NHH Bergen for international exposure.'
+    },
+    bullets: {
+      fr: [
+        'Mastère Spécialisé Stratégie Digitale & Data · Audencia Business School, 2023.',
+        'M2 Marketing Stratégique · EM Strasbourg, 2022.',
+        'M1 Marketing · Norwegian School of Economics (NHH), Bergen, 2020.'
+      ],
+      en: [
+        'MSc Digital Strategy & Data · Audencia Business School, 2023.',
+        'M2 Strategic Marketing · EM Strasbourg, 2022.',
+        'M1 Marketing · Norwegian School of Economics (NHH), Bergen, 2020.'
+      ]
+    },
+    tags: ['Audencia', 'EM Strasbourg', 'NHH Bergen']
+  }
+];
+
+/* ===========================================================
+   i18n
+   =========================================================== */
+const dict = {
+  fr: {
+    'meta.role': 'Rôle', 'meta.role.v': 'Chargé de projet digital · Marketing & Web',
+    'meta.loc': 'Base', 'meta.status': 'Statut', 'meta.status.v': 'Disponible · Mobilité hybride',
+    'portrait.caption': 'Fig. 01 · l\'auteur, Nantes 2026',
+    'pitch.label': 'A01 / Proposition',
+    'pitch.body': 'Je pilote des <em>environnements web</em> à fort enjeu, là où se croisent <em>marketing, DSI, cybersécurité</em> et <span class="mark">agences externes</span>. Mon métier&nbsp;: traduire entre ces mondes pour livrer des plateformes <em>fiables, conformes et durables</em>.',
+    'cta.cv': 'Télécharger le CV (PDF)',
+    'cta.contact': 'Écrivez-moi',
+    'tl.title': 'Un parcours, <em>cinq chapitres</em>.',
+    'tl.deck': 'Grands groupes français, une école à Bergen, un passage par le marketing, un atterrissage dans la gouvernance web. Cliquez sur un point, chaque étape est un chapitre.',
+    'tl.prev': 'Précédent', 'tl.next': 'Suivant',
+    'case.title': 'Sécuriser 40+ sites <em>sans casser la prod</em>.',
+    'case.deck': 'Eurial International · Groupe Agrial. Un parc web hétérogène, des marques internationales, des menaces réelles. Ma mission : mettre les fondations en ordre, du reverse proxy à l\'infra et au RGAA.',
+    'case.lede': 'Quand je suis arrivé chez Eurial, la question n\'était pas <em>«&nbsp;faut-il sécuriser nos sites ?&nbsp;»</em> mais <strong>par où commencer</strong>. J\'ai pris la casquette de chef d\'orchestre entre la <strong>cybersécurité groupe</strong>, les <strong>agences web</strong>, la <strong>DSI infrastructure</strong> et les <strong>équipes marketing</strong> qui ne voulaient surtout pas de coupure.',
+    'case.role': 'Mon rôle',
+    'case.role.body': 'Chargé de projet transverse : cadrage, priorisation, arbitrages, reporting COPIL. Aucune ligne de code, mais chaque décision passait par moi avant d\'arriver chez l\'hébergeur.',
+    'case.approach': 'Approche',
+    'case.approach.body': 'Cartographier l\'existant (sites, CMS, versions, criticité), définir un niveau de sécurité cible par marque, puis dérouler en vagues pour absorber la charge des agences sans geler les campagnes marketing.',
+    'case.s1': 'Sites web audités et classés par criticité',
+    'case.s2': 'Coupure de service sur la bascule WAF',
+    'case.s3': 'Audit accessibilité niveau AA conduit en parallèle',
+    'schema.title': 'Schéma / Chaîne de responsabilité',
+    'schema.n1': 'Marketing', 'schema.n1r': 'Les marques · Besoins',
+    'schema.n2r': 'Chargé de projet · Pivot',
+    'schema.n3': 'Cyber + DSI', 'schema.n3r': 'Exécution technique',
+    'layer.1': 'Cartographie du parc', 'layer.1d': 'Inventaire CMS, versions, criticité, dépendances agences',
+    'layer.2': 'Reverse proxy · WAF', 'layer.2d': 'Bascule progressive par vague, sans coupure marketing',
+    'layer.3': 'Serveurs durcis', 'layer.3d': 'Migration vers infra plus robuste, MAJ maîtrisées',
+    'layer.4': 'Audit RGAA · Accessibilité', 'layer.4d': 'Diagnostic AA, plan de remédiation, suivi agences',
+    'layer.5': 'Gouvernance pérenne', 'layer.5d': 'Comités récurrents, référentiels, docs vivantes',
+    'status.done': 'Livré', 'status.run': 'En run',
+    'mani.title': 'Trois choses <em>à retenir.</em>',
+    'mani.deck': 'Si vous n\'aviez qu\'une minute avant de refermer cette page, voici ce que vous pouvez attendre de moi.',
+    'm1.h': 'Je traduis entre <em>deux mondes</em>.',
+    'm1.p': 'Marketing et DSI ne parlent pas la même langue. Je passe ma journée à traduire des besoins business en décisions techniques, et l\'inverse, sans perdre personne en route. C\'est là que j\'apporte le plus de valeur.',
+    'm2.h': 'Rigueur <em>sans rigidité</em>.',
+    'm2.p': 'Gouvernance, documentation, référentiels : oui, mais servis tièdes, sans bureaucratie : le but reste de livrer. J\'aime les process qui aident l\'équipe, pas ceux qu\'on subit.',
+    'm3.h': 'Profil <em>pluriel</em>.',
+    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen. Banques, agro-alimentaire, industrie auto. Trois langues. Je me pose vite dans un contexte nouveau ; c\'est un réflexe, pas un argument de CV.',
+    'tools.title': 'Ce que j\'utilise <em>au quotidien.</em>',
+    'tools.deck': 'Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et le niveau de confort que j\'y ai.',
+    'tg.1': 'Pilotage & gouvernance',
+    'tg.1.a': 'Gestion de projet web', 'tg.1.b': 'Gouvernance multi-sites',
+    'tg.1.c': 'Coordination agences', 'tg.1.d': 'Reporting COPIL',
+    'tg.2': 'Conformité web',
+    'tg.2.a': 'Audits accessibilité', 'tg.2.b': 'Éco-conception web',
+    'tg.3': 'Web & stack',
+    'tg.4': 'Marketing & UX', 'tg.4.a': 'Analyse de données marketing',
+    'contact.title': 'La suite, <em>c\'est peut-être avec vous.</em>',
+    'contact.mail': 'Courriel', 'contact.phone': 'Téléphone',
+    'colophon': 'Portfolio composé en <em>Newsreader</em> & <em>Instrument Serif</em>, complété de JetBrains Mono pour les interstices techniques. Fait à la main à Nantes, 2026.'
+  },
+  en: {
+    'meta.role': 'Role', 'meta.role.v': 'Digital project lead · Marketing & Web',
+    'meta.loc': 'Base', 'meta.status': 'Status', 'meta.status.v': 'Available · Hybrid mobility',
+    'portrait.caption': 'Fig. 01 · the author, Nantes 2026',
+    'pitch.label': 'A01 / Proposition',
+    'pitch.body': 'I run <em>web environments</em> with real stakes, where <em>marketing, IT, cybersecurity</em> and <span class="mark">external agencies</span> meet. My job: translate between these worlds to ship platforms that are <em>reliable, compliant and built to last</em>.',
+    'cta.cv': 'Download CV (PDF)',
+    'cta.contact': 'Write to me',
+    'tl.title': 'One path, <em>five chapters</em>.',
+    'tl.deck': 'French corporate groups, a school in Bergen, a marketing detour, a landing in web governance. Tap a dot, each stop is a chapter.',
+    'tl.prev': 'Previous', 'tl.next': 'Next',
+    'case.title': 'Securing 40+ sites <em>without breaking prod</em>.',
+    'case.deck': 'Eurial International · Agrial Group. A heterogeneous web estate, international brands, real threats. My job: put the foundations in order, from reverse proxy to infra to accessibility.',
+    'case.lede': 'When I joined Eurial, the question wasn\'t <em>"should we secure our sites?"</em> but <strong>where to start</strong>. I became the conductor between <strong>group cybersecurity</strong>, <strong>web agencies</strong>, <strong>IT infrastructure</strong>, and <strong>marketing teams</strong> who would not tolerate downtime.',
+    'case.role': 'My role',
+    'case.role.body': 'Transverse project lead: scoping, prioritisation, trade-offs, steering committee reporting. Not a line of code, but every decision passed through me before reaching the hosting provider.',
+    'case.approach': 'Approach',
+    'case.approach.body': 'Map what exists (sites, CMS, versions, criticality), define a target security level per brand, then roll out in waves to absorb agency load without freezing marketing campaigns.',
+    'case.s1': 'Sites audited and classified by criticality',
+    'case.s2': 'Downtime during the WAF cutover',
+    'case.s3': 'Accessibility audit (AA level) run in parallel',
+    'schema.title': 'Diagram / Responsibility chain',
+    'schema.n1': 'Marketing', 'schema.n1r': 'Brands · Needs',
+    'schema.n2r': 'Project lead · Pivot',
+    'schema.n3': 'Cyber + IT', 'schema.n3r': 'Technical execution',
+    'layer.1': 'Estate mapping', 'layer.1d': 'CMS inventory, versions, criticality, agency dependencies',
+    'layer.2': 'Reverse proxy · WAF', 'layer.2d': 'Progressive waves, no marketing downtime',
+    'layer.3': 'Hardened servers', 'layer.3d': 'Migration to more robust infra, controlled updates',
+    'layer.4': 'Accessibility audit', 'layer.4d': 'AA diagnostic, remediation plan, agency follow-up',
+    'layer.5': 'Long-term governance', 'layer.5d': 'Recurring committees, standards, living docs',
+    'status.done': 'Shipped', 'status.run': 'In run',
+    'mani.title': 'Three things <em>worth remembering.</em>',
+    'mani.deck': 'If you only have a minute before closing this page, here is what you can expect from me.',
+    'm1.h': 'I translate between <em>two worlds</em>.',
+    'm1.p': 'Marketing and IT don\'t speak the same language. My day is spent translating business needs into technical decisions, and the other way around, without losing anyone along the way. That\'s where I add the most value.',
+    'm2.h': 'Rigour <em>without rigidity</em>.',
+    'm2.p': 'Governance, documentation, standards: yes, but served warm, without bureaucracy: the point is to ship. I like processes that help the team, not ones they endure.',
+    'm3.h': '<em>Plural</em> profile.',
+    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen. Banks, food industry, automotive. Three languages. I settle into new contexts fast; a reflex, not a CV line.',
+    'tools.title': 'What I use <em>every day.</em>',
+    'tools.deck': 'Not an exhaustive logo wall. Just the terrains I actually know, and how comfortable I am on each.',
+    'tg.1': 'Leadership & governance',
+    'tg.1.a': 'Web project management', 'tg.1.b': 'Multi-site governance',
+    'tg.1.c': 'Agency coordination', 'tg.1.d': 'Steering reporting',
+    'tg.2': 'Web compliance',
+    'tg.2.a': 'Accessibility audits', 'tg.2.b': 'Sustainable web',
+    'tg.3': 'Web & stack',
+    'tg.4': 'Marketing & UX', 'tg.4.a': 'Marketing data analysis',
+    'contact.title': 'Maybe the next chapter <em>is with you.</em>',
+    'contact.mail': 'Email', 'contact.phone': 'Phone',
+    'colophon': 'Set in <em>Newsreader</em> and <em>Instrument Serif</em>, with JetBrains Mono for the technical interstices. Hand-made in Nantes, 2026.'
+  }
+};
+
+let currentLang = 'fr';
+function setLang(lang) {
+  currentLang = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (dict[lang] && dict[lang][key]) el.innerHTML = dict[lang][key];
+  });
+  document.querySelectorAll('.lang-toggle button').forEach(b => {
+    b.classList.toggle('on', b.dataset.lang === lang);
+  });
+  // re-render timeline card in new language
+  renderCard(activeIdx);
+  buildTicker();
+}
+
+/* ===========================================================
+   TIMELINE
+   =========================================================== */
+const rail = document.getElementById('rail');
+const card = document.getElementById('tl-card');
+let activeIdx = 0;
+
+// Year axis: 2021 to 2026 → 0 to 1
+function pos(year) {
+  const min = 2021, max = 2026.0;
+  return Math.max(0, Math.min(1, (year - min) / (max - min)));
+}
+
+function buildTabs() {
+  const tabs = document.getElementById('tl-tabs');
+  if (!tabs) return;
+  tabs.innerHTML = chapters.map((ch, i) => {
+    const y = Math.floor(ch.date.start);
+    return `<button data-i="${i}"${i===activeIdx?' class="on"':''}><span>${ch.company}</span><span class="year">${y}</span></button>`;
+  }).join('');
+  tabs.querySelectorAll('button').forEach(b => {
+    b.addEventListener('click', () => selectIdx(parseInt(b.dataset.i, 10)));
+  });
+}
+
+function buildRail() {
+  // remove existing nodes (keep years div)
+  rail.querySelectorAll('.timeline-node').forEach(n => n.remove());
+  chapters.forEach((ch, i) => {
+    const node = document.createElement('div');
+    node.className = 'timeline-node' + (i === activeIdx ? ' active' : '') + (i % 2 === 1 ? ' down' : '');
+    node.style.left = (pos(ch.date.start) * 100) + '%';
+    node.innerHTML = `
+      <div class="label">${ch.company}</div>
+      <div class="chip"></div>
+    `;
+    node.addEventListener('click', () => selectIdx(i));
+    rail.appendChild(node);
+  });
+}
+
+function renderCard(i) {
+  const ch = chapters[i];
+  const t = dict[currentLang];
+  card.classList.add('fading');
+  setTimeout(() => {
+    card.innerHTML = `
+      <div class="tc-left">
+        <h3 class="tc-logo">${ch.company}<em>${ch.sub[currentLang]}</em></h3>
+        <div class="tc-role">${ch.role[currentLang]}</div>
+        <div class="tc-meta">
+          <span><b>${ch.when[currentLang]}</b></span>
+          <span>${ch.group[currentLang]}</span>
+        </div>
+        <div class="tc-tags">${ch.tags.map(t => `<span>${t}</span>`).join('')}</div>
+      </div>
+      <div class="tc-right">
+        <div class="tc-deck">${ch.deck[currentLang]}</div>
+        <ul class="tc-bullets">
+          ${ch.bullets[currentLang].map((b, n) => `<li data-n="${String(n+1).padStart(2,'0')}">${b}</li>`).join('')}
+        </ul>
+      </div>
+    `;
+    card.classList.remove('fading');
+  }, 180);
+}
+
+function selectIdx(i) {
+  activeIdx = Math.max(0, Math.min(chapters.length - 1, i));
+  document.querySelectorAll('.timeline-node').forEach((n, k) => n.classList.toggle('active', k === activeIdx));
+  document.querySelectorAll('#tl-tabs button').forEach((b, k) => b.classList.toggle('on', k === activeIdx));
+  const active = document.querySelector('#tl-tabs button.on');
+  if (active && active.scrollIntoView) active.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'});
+  document.getElementById('tl-cur').textContent = String(activeIdx + 1).padStart(2, '0');
+  renderCard(activeIdx);
+}
+
+document.getElementById('tl-prev').onclick = () => selectIdx(activeIdx - 1);
+document.getElementById('tl-next').onclick = () => selectIdx((activeIdx + 1) % chapters.length);
+document.getElementById('tl-total').textContent = String(chapters.length).padStart(2, '0');
+
+buildRail();
+buildTabs();
+renderCard(0);
+
+/* ===== Case study tabs ===== */
+(function(){
+  const tabs = document.querySelectorAll('#case-tabs button');
+  const panels = document.querySelectorAll('.case-panel');
+  tabs.forEach(t => {
+    t.addEventListener('click', () => {
+      const i = parseInt(t.dataset.case, 10);
+      tabs.forEach(b => b.classList.toggle('on', parseInt(b.dataset.case,10) === i));
+      panels.forEach((p, k) => p.classList.toggle('on', k === i));
+      // re-trigger reveal animations on the now-visible panel
+      panels[i].querySelectorAll('.rv').forEach(el => {
+        el.classList.remove('on');
+        requestAnimationFrame(() => requestAnimationFrame(() => el.classList.add('on')));
+      });
+    });
+  });
+})();
+
+/* ===== Tools carousel (mobile only) ===== */
+(function(){
+  const track = document.getElementById('tool-track');
+  const dotsWrap = document.getElementById('tools-dots');
+  const prev = document.getElementById('tools-prev');
+  const next = document.getElementById('tools-next');
+  if (!track) return;
+  const groups = track.querySelectorAll('.tool-group');
+  groups.forEach((g,i) => { const h = g.querySelector('h4'); if (h) h.setAttribute('data-idx', String(i+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0')); });
+  let idx = 0;
+  function render(){
+    const mob = window.matchMedia('(max-width: 720px)').matches;
+    track.style.transform = mob ? `translateX(-${idx*100}%)` : '';
+    dotsWrap.querySelectorAll('span').forEach((d,i)=>d.classList.toggle('on', i===idx));
+    prev.disabled = idx===0; next.disabled = idx===groups.length-1;
+  }
+  dotsWrap.innerHTML = Array.from(groups).map((_,i)=>`<span${i===0?' class="on"':''}></span>`).join('');
+  dotsWrap.querySelectorAll('span').forEach((d,i)=>d.addEventListener('click',()=>{idx=i;render();}));
+  prev.addEventListener('click',()=>{idx=Math.max(0,idx-1);render();});
+  next.addEventListener('click',()=>{idx=Math.min(groups.length-1,idx+1);render();});
+  let sx=0,dx=0,drag=false;
+  track.addEventListener('touchstart',e=>{sx=e.touches[0].clientX;drag=true;dx=0;},{passive:true});
+  track.addEventListener('touchmove',e=>{if(drag)dx=e.touches[0].clientX-sx;},{passive:true});
+  track.addEventListener('touchend',()=>{if(!drag)return;drag=false;if(Math.abs(dx)>40){if(dx<0)idx=Math.min(groups.length-1,idx+1);else idx=Math.max(0,idx-1);render();}});
+  window.addEventListener('resize',render);
+  render();
+})();
+
+/* ===========================================================
+   TICKER
+   =========================================================== */
+function buildTicker() {
+  const bits = currentLang === 'fr'
+    ? ['Nantes · FR', 'Chargé de projet digital', 'Gouvernance web', 'RGAA 4.1', 'Cybersécurité', 'Éco-conception', 'Marketing digital', 'Coordination DSI · Agences', 'FR · EN · AR', 'Disponible']
+    : ['Nantes · FR', 'Digital project lead', 'Web governance', 'WCAG 2.1 AA', 'Cybersecurity', 'Sustainable web', 'Digital marketing', 'IT & agency coordination', 'FR · EN · AR', 'Available'];
+  const track = document.getElementById('ticker');
+  const line = bits.map(b => `<span>★&nbsp;&nbsp;${b}</span>`).join('<span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>');
+  track.innerHTML = line + line;
+}
+buildTicker();
+
+/* ===========================================================
+   LANGUAGE BUTTONS
+   =========================================================== */
+document.querySelectorAll('.lang-toggle button').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+/* ===========================================================
+   MOBILE MENU
+   =========================================================== */
+const menuBtn = document.getElementById('menuBtn');
+const mobOverlay = document.getElementById('mobileOverlay');
+menuBtn.addEventListener('click', () => {
+  const open = menuBtn.classList.toggle('open');
+  mobOverlay.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+document.querySelectorAll('[data-mob]').forEach(a => {
+  a.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    mobOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  });
+});
+
+/* ===========================================================
+   REVEAL ON SCROLL
+   =========================================================== */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('on'); });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+/* ===========================================================
+   NAV + SIDE PROGRESS ACTIVE
+   =========================================================== */
+const sections = document.querySelectorAll('section[data-section]');
+const navLinks = document.querySelectorAll('[data-nav], [data-side]');
+const sIO = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const id = e.target.id;
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+    }
+  });
+}, { rootMargin: '-40% 0px -55% 0px' });
+sections.forEach(s => sIO.observe(s));
+
+document.getElementById('year').textContent = new Date().getFullYear();
+
+/* ===========================================================
+   TWEAKS PANEL
+   =========================================================== */
+const tweakPanel = document.getElementById('tweaks');
+let tweakState = { ...TWEAK_DEFAULTS };
+
+function applyTweaks() {
+  document.documentElement.setAttribute('data-palette', tweakState.palette);
+  // timeline layout
+  if (tweakState.timelineStyle === 'vertical') {
+    document.getElementById('timeline').classList.add('vertical');
+  } else {
+    document.getElementById('timeline').classList.remove('vertical');
+  }
+  // serif
+  if (tweakState.displaySerif === 'instrument') {
+    document.documentElement.style.setProperty('--display-font', 'Instrument Serif');
+    document.querySelectorAll('.serif, h1.name, .section-title, .case-title, .contact-title, .tc-logo').forEach(el => {
+      el.style.fontFamily = "'Instrument Serif', 'Newsreader', Georgia, serif";
+    });
+  } else {
+    document.querySelectorAll('.serif, h1.name, .section-title, .case-title, .contact-title, .tc-logo').forEach(el => {
+      el.style.fontFamily = '';
+    });
+  }
+  // photo vs initials
+  const portrait = document.querySelector('.portrait');
+  if (tweakState.showPhoto === false || tweakState.showPhoto === 'false') {
+    portrait.innerHTML = `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--ink);color:var(--bg);font-family:'Instrument Serif',serif;font-style:italic;font-size:220px;line-height:1;letter-spacing:-0.05em;">WM<span style="color:var(--accent)">.</span></div>`;
+  } else {
+    portrait.innerHTML = '<img src="assets/wail.jpeg" alt="Wail Menouni">';
+  }
+  // reflect in UI chips
+  document.querySelectorAll('#sw-palette .sw').forEach(b => b.classList.toggle('on', b.dataset.palette === tweakState.palette));
+  document.querySelectorAll('#sw-timeline button').forEach(b => b.classList.toggle('on', b.dataset.timeline === tweakState.timelineStyle));
+  document.querySelectorAll('#sw-serif button').forEach(b => b.classList.toggle('on', b.dataset.serif === tweakState.displaySerif));
+  document.querySelectorAll('#sw-photo button').forEach(b => b.classList.toggle('on', String(b.dataset.photo) === String(tweakState.showPhoto)));
+}
+
+function updateTweak(key, val) {
+  tweakState[key] = val;
+  applyTweaks();
+  try {
+    window.parent.postMessage({ type: '__edit_mode_set_keys', edits: { [key]: val } }, '*');
+  } catch (e) {}
+}
+
+// wire controls
+document.querySelectorAll('#sw-palette .sw').forEach(b => b.onclick = () => updateTweak('palette', b.dataset.palette));
+document.querySelectorAll('#sw-timeline button').forEach(b => b.onclick = () => updateTweak('timelineStyle', b.dataset.timeline));
+document.querySelectorAll('#sw-serif button').forEach(b => b.onclick = () => updateTweak('displaySerif', b.dataset.serif));
+document.querySelectorAll('#sw-photo button').forEach(b => b.onclick = () => updateTweak('showPhoto', b.dataset.photo === 'true'));
+
+applyTweaks();
+
+// edit-mode hook
+window.addEventListener('message', (e) => {
+  const d = e.data;
+  if (!d || !d.type) return;
+  if (d.type === '__activate_edit_mode') tweakPanel.classList.add('visible');
+  if (d.type === '__deactivate_edit_mode') tweakPanel.classList.remove('visible');
+});
+window.parent.postMessage({ type: '__edit_mode_available' }, '*');
+
+/* ===========================================================
+   VERTICAL TIMELINE MODE (css on-the-fly)
+   =========================================================== */
+const vstyle = document.createElement('style');
+vstyle.textContent = `
+#timeline.vertical .timeline-rail { height: auto; padding: 20px 0 20px 80px; margin-top: 8px; }
+#timeline.vertical .timeline-rail::before { left: 40px; right: auto; top: 0; bottom: 0; width: 1px; height: auto; }
+#timeline.vertical .timeline-years { display: none; }
+#timeline.vertical .timeline-node { position: relative; top: auto; left: 40px !important; transform: translate(-50%, 0); margin-bottom: 36px; padding: 4px; display:inline-flex; align-items:center; gap:14px; }
+#timeline.vertical .timeline-node .label { position: static; transform: none; padding-left: 18px; top: auto; bottom: auto; opacity: 1; color: var(--ink-3); }
+#timeline.vertical .timeline-node.down .label { top: auto; bottom: auto; }
+#timeline.vertical .timeline-node.active .label { color: var(--ink); }
+#timeline.vertical .timeline-node::after { content: attr(data-when); }
+`;
+document.head.appendChild(vstyle);
+
+</script>
+</body>
+</html>
