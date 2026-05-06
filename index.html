@@ -28,8 +28,8 @@
     --bg-2: #EDE8D9;
     --ink: #18181B;
     --ink-2: #3A3A3F;
-    --ink-3: #6B6B70;
-    --ink-4: #6F6E66;
+    --ink-3: #66666B;
+    --ink-4: #696860;
     --rule: #D9D3BF;
     --paper: #FBF9F2;
     --accent: #B8442C;
@@ -62,8 +62,8 @@
     --bg-2: #E8E4D8;
     --ink: #1A1F1A;
     --ink-2: #2F3A2F;
-    --ink-3: #6B746B;
-    --ink-4: #666F65;
+    --ink-3: #5D675C;
+    --ink-4: #5D675C;
     --rule: #D3CEBE;
     --paper: #FBF9F2;
     --accent: #2E5D4E;
@@ -716,7 +716,9 @@
     outline: 2px solid var(--accent);
     outline-offset: 3px;
   }
-  .tl-nav .counter b { color: var(--ink); font-weight: 500; }
+  .tl-nav .counter { color: var(--ink-2); }
+  .tl-nav .counter b,
+  .tl-nav .counter span { color: var(--ink); font-weight: 500; }
 
   /* ============== PROJECT CASE STUDY ============== */
   #projet { background: var(--paper); }
@@ -969,7 +971,7 @@
   }
   .tools-grid .tool-track { display: contents; }
   .tools-nav { display: none; }
-  .tool-group h4 {
+  .tool-group h3 {
     font-family: 'JetBrains Mono', monospace;
     font-size: 10.5px;
     color: var(--ink-3);
@@ -1139,7 +1141,7 @@
     display: flex; flex-direction: column; gap: 14px;
     font-family: 'JetBrains Mono', monospace;
     font-size: 9.5px;
-    color: var(--ink-4);
+    color: var(--ink-2);
     letter-spacing: 0.1em;
     text-transform: uppercase;
   }
@@ -1484,8 +1486,8 @@
     .tools-grid { display: block; position: relative; overflow: hidden; margin: 0 -18px; padding: 0 18px; }
     .tools-grid .tool-track { display: flex; transition: transform .45s cubic-bezier(0.2, 0.8, 0.3, 1); }
     .tool-group { flex: 0 0 100%; padding: 0 4px; box-sizing: border-box; opacity: 1 !important; transform: none !important; }
-    .tool-group h4 { font-size: 10px; margin-bottom: 14px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .tool-group h4::after { content: attr(data-idx); font-family: 'Newsreader', serif; font-size: 20px; font-weight: 300; letter-spacing: -0.02em; color: var(--accent); }
+    .tool-group h3 { font-size: 10px; margin-bottom: 14px; padding-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .tool-group h3::after { content: attr(data-idx); font-family: 'Newsreader', serif; font-size: 20px; font-weight: 300; letter-spacing: -0.02em; color: var(--accent); }
     .tool-group li { font-size: 17px; padding: 13px 0; }
     .tool-group li .lvl { font-size: 9.5px; }
     .tools-nav { display: flex; align-items: center; justify-content: space-between; margin-top: 22px; padding-top: 18px; border-top: 1px solid var(--rule); }
@@ -2381,7 +2383,7 @@
   <div class="tools-grid" id="tools-grid" role="region" aria-label="Outils et terrains">
    <div class="tool-track" id="tool-track" aria-live="polite">
     <div class="tool-group rv" role="group" aria-label="Pilotage et gouvernance">
-      <h4 data-i18n="tg.1">Pilotage &amp; gouvernance</h4>
+      <h3 data-i18n="tg.1">Pilotage &amp; gouvernance</h3>
       <ul>
         <li class="primary"><span data-i18n="tg.1.a">Gestion de projet web</span><span class="lvl">Lead</span></li>
         <li class="primary"><span data-i18n="tg.1.b">Gouvernance multi-sites</span><span class="lvl">Lead</span></li>
@@ -2392,7 +2394,7 @@
     </div>
 
     <div class="tool-group rv" role="group" aria-label="Conformité web">
-      <h4 data-i18n="tg.2">Conformité web</h4>
+      <h3 data-i18n="tg.2">Conformité web</h3>
       <ul>
         <li class="primary"><span>RGAA 4.1 · WCAG 2.1</span><span class="lvl">Lead</span></li>
         <li class="primary"><span data-i18n="tg.2.a">Audits accessibilité</span><span class="lvl">Lead</span></li>
@@ -2403,7 +2405,7 @@
     </div>
 
     <div class="tool-group rv" role="group" aria-label="Web et stack">
-      <h4 data-i18n="tg.3">Web &amp; stack</h4>
+      <h3 data-i18n="tg.3">Web &amp; stack</h3>
       <ul>
         <li class="primary"><span>WordPress</span><span class="lvl">Hands-on</span></li>
         <li><span>HTML · CSS</span><span class="lvl">Hands-on</span></li>
@@ -2414,7 +2416,7 @@
     </div>
 
     <div class="tool-group rv" role="group" aria-label="Marketing et UX">
-      <h4 data-i18n="tg.4">Marketing &amp; UX</h4>
+      <h3 data-i18n="tg.4">Marketing &amp; UX</h3>
       <ul>
         <li class="primary"><span>SEO · SEA</span><span class="lvl">Hands-on</span></li>
         <li><span>Figma · Wireframes</span><span class="lvl">Hands-on</span></li>
@@ -2475,7 +2477,7 @@
 </nav>
 
 <!-- ========== TWEAKS PANEL ========== -->
-<div id="tweaks" aria-hidden="true">
+<div id="tweaks" aria-hidden="true" hidden inert>
   <header>
     <b>Tweaks</b>
     <span>v1</span>
@@ -3181,7 +3183,7 @@ renderCard(0);
   const next = document.getElementById('tools-next');
   if (!track) return;
   const groups = track.querySelectorAll('.tool-group');
-  groups.forEach((g,i) => { const h = g.querySelector('h4'); if (h) h.setAttribute('data-idx', String(i+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0')); });
+  groups.forEach((g,i) => { const h = g.querySelector('h3'); if (h) h.setAttribute('data-idx', String(i+1).padStart(2,'0')+' / '+String(groups.length).padStart(2,'0')); });
   let idx = 0;
   window.updateToolsLabels = function updateToolsLabels() {
     const fr = currentLang === 'fr';
@@ -3609,8 +3611,18 @@ window.__initPortraitTilt?.();
 window.addEventListener('message', (e) => {
   const d = e.data;
   if (!d || !d.type) return;
-  if (d.type === '__activate_edit_mode') tweakPanel.classList.add('visible');
-  if (d.type === '__deactivate_edit_mode') tweakPanel.classList.remove('visible');
+  if (d.type === '__activate_edit_mode') {
+    tweakPanel.hidden = false;
+    tweakPanel.inert = false;
+    tweakPanel.setAttribute('aria-hidden', 'false');
+    tweakPanel.classList.add('visible');
+  }
+  if (d.type === '__deactivate_edit_mode') {
+    tweakPanel.classList.remove('visible');
+    tweakPanel.hidden = true;
+    tweakPanel.inert = true;
+    tweakPanel.setAttribute('aria-hidden', 'true');
+  }
 });
 window.parent.postMessage({ type: '__edit_mode_available' }, '*');
 
