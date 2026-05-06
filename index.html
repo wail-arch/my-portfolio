@@ -1543,6 +1543,19 @@
       box-shadow: 0 0 0 0.18em color-mix(in srgb, var(--accent) 0%, transparent);
     }
   }
+  @media (max-width: 720px) {
+    h1.name .name-text {
+      display: inline-block;
+      flex: 1 1 auto;
+      min-width: 0;
+      max-width: calc(100vw - 110px);
+      white-space: nowrap;
+    }
+    h1.name .lastname {
+      display: block;
+      padding-left: 0;
+    }
+  }
 
   /* ============== PORTRAIT REVEAL + TILT ============== */
   .portrait {
