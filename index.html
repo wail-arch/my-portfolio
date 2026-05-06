@@ -650,12 +650,34 @@
     text-transform: uppercase;
   }
   .tl-nav button {
-    background: transparent; border: 0; font: inherit; cursor: pointer;
-    color: var(--ink-3);
-    padding: 8px 12px;
-    transition: color .2s;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    color: var(--ink-2);
+    padding: 11px 16px;
+    min-width: 136px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition:
+      color .2s,
+      border-color .2s,
+      background .2s,
+      transform .2s;
   }
-  .tl-nav button:hover { color: var(--ink); }
+  .tl-nav button:hover {
+    color: var(--ink);
+    border-color: var(--ink);
+    background: color-mix(in srgb, var(--accent) 8%, var(--paper));
+    transform: translateY(-1px);
+  }
+  .tl-nav button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
   .tl-nav .counter b { color: var(--ink); font-weight: 500; }
 
   /* ============== PROJECT CASE STUDY ============== */
@@ -1307,7 +1329,10 @@
       margin-top: 22px; padding-top: 16px;
       font-size: 10px;
     }
-    .tl-nav button { padding: 6px 8px; }
+    .tl-nav button {
+      min-width: 108px;
+      padding: 9px 11px;
+    }
 
     /* ----- CASE STUDY ----- */
     .case-tabs {
@@ -2976,7 +3001,7 @@ function selectIdx(i) {
   renderCard(activeIdx);
 }
 
-document.getElementById('tl-prev').onclick = () => selectIdx(activeIdx - 1);
+document.getElementById('tl-prev').onclick = () => selectIdx((activeIdx - 1 + chapters.length) % chapters.length);
 document.getElementById('tl-next').onclick = () => selectIdx((activeIdx + 1) % chapters.length);
 document.getElementById('tl-total').textContent = String(chapters.length).padStart(2, '0');
 
