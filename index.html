@@ -1402,11 +1402,11 @@
   <button class="menu-btn" id="menuBtn" aria-label="Menu" style="display:none"><i></i><i></i><i></i></button>
   <div class="brand">Wail Menouni<sup>FR/001</sup></div>
   <nav>
-    <a href="#index" data-nav>Index</a>
-    <a href="#timeline" data-nav>Timeline</a>
-    <a href="#projet" data-nav>Projet</a>
-    <a href="#outils" data-nav>Outils</a>
-    <a href="#contact" data-nav>Contact</a>
+    <a href="#index" data-nav data-i18n="nav.index">Index</a>
+    <a href="#timeline" data-nav data-i18n="nav.timeline">Timeline</a>
+    <a href="#projet" data-nav data-i18n="nav.project">Projet</a>
+    <a href="#outils" data-nav data-i18n="nav.tools">Outils</a>
+    <a href="#contact" data-nav data-i18n="nav.contact">Contact</a>
   </nav>
   <div class="right">
     <div class="lang-toggle" role="group" aria-label="Language">
@@ -1419,16 +1419,16 @@
 <!-- Mobile menu overlay -->
 <div class="mobile-overlay" id="mobileOverlay" aria-hidden="true">
   <nav>
-    <a href="#index" data-mob>Index <em>01</em></a>
-    <a href="#timeline" data-mob>Timeline <em>02</em></a>
-    <a href="#projet" data-mob>Projet <em>03</em></a>
-    <a href="#manifeste" data-mob>Manifeste <em>04</em></a>
-    <a href="#outils" data-mob>Outils <em>05</em></a>
-    <a href="#contact" data-mob>Contact <em>06</em></a>
+    <a href="#index" data-mob><span data-i18n="nav.index">Index</span> <em>01</em></a>
+    <a href="#timeline" data-mob><span data-i18n="nav.timeline">Timeline</span> <em>02</em></a>
+    <a href="#projet" data-mob><span data-i18n="nav.project">Projet</span> <em>03</em></a>
+    <a href="#manifeste" data-mob><span data-i18n="nav.manifesto">Manifeste</span> <em>04</em></a>
+    <a href="#outils" data-mob><span data-i18n="nav.tools">Outils</span> <em>05</em></a>
+    <a href="#contact" data-mob><span data-i18n="nav.contact">Contact</span> <em>06</em></a>
   </nav>
   <div class="bottom">
     <span>Nantes · FR</span>
-    <a href="mailto:menouniwail@gmail.com" style="text-decoration:none;color:var(--accent)">Écrire →</a>
+    <a href="mailto:menouniwail@gmail.com" style="text-decoration:none;color:var(--accent)" data-i18n="nav.write">Écrire →</a>
   </div>
 </div>
 
@@ -1491,7 +1491,7 @@
 <section data-section id="timeline" data-screen-label="02 Timeline">
   <div class="section-head">
     <div class="rv">
-      <span class="section-num">§ 02 / Timeline</span>
+      <span class="section-num" data-i18n="sec.timeline">§ 02 / Timeline</span>
       <h2 class="section-title" data-i18n="tl.title">Un parcours, <em>cinq chapitres</em>.</h2>
     </div>
     <p class="section-deck rv" data-i18n="tl.deck">
@@ -1522,7 +1522,7 @@
 <section data-section id="projet" data-screen-label="03 Projet">
   <div class="section-head">
     <div class="rv">
-      <span class="section-num">§ 03 / Études de cas</span>
+      <span class="section-num" data-i18n="sec.case">§ 03 / Études de cas</span>
       <h2 class="section-title" data-i18n="case.title">Quatre terrains, <em>une même méthode.</em></h2>
     </div>
     <p class="section-deck rv" data-i18n="case.deck">
@@ -1533,19 +1533,19 @@
   <!-- Case tabs -->
   <div class="case-tabs rv" id="case-tabs" role="tablist">
     <button class="on" data-case="0">
-      <span class="num">01 / Sécurité</span>
+      <span class="num" data-i18n="ct.0.num">01 / Sécurité</span>
       <span class="ttl" data-i18n="ct.0">Parc web international</span>
     </button>
     <button data-case="1">
-      <span class="num">02 / Conformité</span>
+      <span class="num" data-i18n="ct.1.num">02 / Conformité</span>
       <span class="ttl" data-i18n="ct.1">RGPD · A11y · Éco-conception</span>
     </button>
     <button data-case="2">
-      <span class="num">03 / Automatisation</span>
+      <span class="num" data-i18n="ct.2.num">03 / Automatisation</span>
       <span class="ttl" data-i18n="ct.2">Power Automate · SharePoint</span>
     </button>
     <button data-case="3">
-      <span class="num">04 / Recherche</span>
+      <span class="num" data-i18n="ct.3.num">04 / Recherche</span>
       <span class="ttl" data-i18n="ct.3">IA &amp; expérience client</span>
     </button>
   </div>
@@ -1939,7 +1939,7 @@
 <section data-section id="manifeste" data-screen-label="04 Manifeste">
   <div class="section-head">
     <div class="rv">
-      <span class="section-num">§ 04 / Manifeste</span>
+      <span class="section-num" data-i18n="sec.manifesto">§ 04 / Manifeste</span>
       <h2 class="section-title" data-i18n="mani.title">Trois choses <em>à retenir.</em></h2>
     </div>
     <p class="section-deck rv" data-i18n="mani.deck">
@@ -1970,7 +1970,7 @@
 <section data-section id="outils" data-screen-label="05 Outils">
   <div class="section-head">
     <div class="rv">
-      <span class="section-num">§ 05 / Outils &amp; terrains</span>
+      <span class="section-num" data-i18n="sec.tools">§ 05 / Outils &amp; terrains</span>
       <h2 class="section-title" data-i18n="tools.title">Ce que j'utilise <em>au quotidien.</em></h2>
     </div>
     <p class="section-deck rv" data-i18n="tools.deck">
@@ -1998,7 +1998,7 @@
         <li class="primary"><span data-i18n="tg.2.a">Audits accessibilité</span><span class="lvl">Lead</span></li>
         <li><span data-i18n="tg.2.b">Éco-conception web</span><span class="lvl">Hands-on</span></li>
         <li><span>RGPD · Cookies</span><span class="lvl">Hands-on</span></li>
-        <li><span>Sécurité web · WAF</span><span class="lvl">Coordination</span></li>
+        <li><span data-i18n="tg.2.c">Sécurité web · WAF</span><span class="lvl">Coordination</span></li>
       </ul>
     </div>
 
@@ -2009,7 +2009,7 @@
         <li><span>HTML · CSS</span><span class="lvl">Hands-on</span></li>
         <li><span>SharePoint · Power Automate</span><span class="lvl">Hands-on</span></li>
         <li><span>GA4 · Matomo</span><span class="lvl">Daily</span></li>
-        <li><span>Python</span><span class="lvl">Notions</span></li>
+        <li><span>Python</span><span class="lvl" data-i18n="lvl.basics">Notions</span></li>
       </ul>
     </div>
 
@@ -2065,12 +2065,12 @@
 
 <!-- ========== SIDE PROGRESS ========== -->
 <nav class="side-prog" aria-label="Progress">
-  <a href="#index" data-side><span class="tick"></span>01 · Index</a>
-  <a href="#timeline" data-side><span class="tick"></span>02 · Timeline</a>
-  <a href="#projet" data-side><span class="tick"></span>03 · Projet</a>
-  <a href="#manifeste" data-side><span class="tick"></span>04 · Manifeste</a>
-  <a href="#outils" data-side><span class="tick"></span>05 · Outils</a>
-  <a href="#contact" data-side><span class="tick"></span>06 · Contact</a>
+  <a href="#index" data-side><span class="tick"></span><span data-i18n="side.index">01 · Index</span></a>
+  <a href="#timeline" data-side><span class="tick"></span><span data-i18n="side.timeline">02 · Timeline</span></a>
+  <a href="#projet" data-side><span class="tick"></span><span data-i18n="side.project">03 · Projet</span></a>
+  <a href="#manifeste" data-side><span class="tick"></span><span data-i18n="side.manifesto">04 · Manifeste</span></a>
+  <a href="#outils" data-side><span class="tick"></span><span data-i18n="side.tools">05 · Outils</span></a>
+  <a href="#contact" data-side><span class="tick"></span><span data-i18n="side.contact">06 · Contact</span></a>
 </nav>
 
 <!-- ========== TWEAKS PANEL ========== -->
@@ -2271,6 +2271,85 @@ const dict = {
     'case.s1': 'Sites web audités et classés par criticité',
     'case.s2': 'Coupure de service sur la bascule WAF',
     'case.s3': 'Audit accessibilité niveau AA conduit en parallèle',
+    'nav.index': 'Index', 'nav.timeline': 'Timeline', 'nav.project': 'Projet', 'nav.manifesto': 'Manifeste', 'nav.tools': 'Outils', 'nav.contact': 'Contact',
+    'nav.write': 'Écrire →',
+    'side.index': '01 · Index', 'side.timeline': '02 · Timeline', 'side.project': '03 · Projet', 'side.manifesto': '04 · Manifeste', 'side.tools': '05 · Outils', 'side.contact': '06 · Contact',
+    'sec.timeline': '§ 02 / Timeline',
+    'sec.case': '§ 03 / Études de cas',
+    'sec.manifesto': '§ 04 / Manifeste',
+    'sec.tools': '§ 05 / Outils & terrains',
+    'case.title': 'Quatre terrains, <em>une même méthode.</em>',
+    'case.deck': 'Quatre projets que je peux vraiment défendre, du parc web international au mémoire de recherche. À chaque fois, le même réflexe&nbsp;: cartographier, prioriser, livrer sans casser ce qui tourne déjà.',
+    'ct.0.num': '01 / Sécurité', 'ct.1.num': '02 / Conformité', 'ct.2.num': '03 / Automatisation', 'ct.3.num': '04 / Recherche',
+    'ct.0': 'Parc web international',
+    'ct.1': 'RGPD · A11y · Éco-conception',
+    'ct.2': 'Power Automate · SharePoint',
+    'ct.3': 'IA & expérience client',
+    'case0.lede': 'Quand je suis arrivé chez Eurial, la question n\'était pas <em>«&nbsp;faut-il sécuriser nos sites ?&nbsp;»</em> mais <strong>par où commencer</strong>. J\'ai pris la casquette de chef d\'orchestre entre la <strong>cybersécurité groupe</strong>, les <strong>agences web</strong>, la <strong>DSI infrastructure</strong> et les <strong>équipes marketing</strong> qui ne voulaient surtout pas de coupure.',
+    'case0.role': 'Mon rôle',
+    'case0.role.body': 'Chargé de projet transverse&nbsp;: cadrage, priorisation, arbitrages, reporting COPIL. Aucune ligne de code, mais chaque décision passait par moi avant d\'arriver chez l\'hébergeur.',
+    'case0.approach': 'Approche',
+    'case0.approach.body': 'Cartographier l\'existant (sites, CMS, versions, criticité), définir un niveau de sécurité cible par marque, puis dérouler en vagues pour absorber la charge des agences sans geler les campagnes marketing.',
+    'case0.s1': 'Sites web audités et classés par criticité',
+    'case0.s2': 'Coupure de service sur la bascule WAF',
+    'case0.s3': 'Audit accessibilité niveau AA conduit en parallèle',
+    'schema0.title': 'Schéma / Chaîne de responsabilité',
+    'schema0.n1': 'Marketing', 'schema0.n1r': 'Les marques · Besoins',
+    'schema0.n2r': 'Chargé de projet · Pivot',
+    'schema0.n3': 'Cyber + DSI', 'schema0.n3r': 'Exécution technique',
+    'layer0.1': 'Cartographie du parc', 'layer0.1d': 'Inventaire CMS, versions, criticité, dépendances agences',
+    'layer0.2': 'Reverse proxy · WAF', 'layer0.2d': 'Bascule progressive par vague, sans coupure marketing',
+    'layer0.3': 'Serveurs durcis', 'layer0.3d': 'Migration vers infra plus robuste, MAJ maîtrisées',
+    'layer0.4': 'Audit RGAA · Accessibilité', 'layer0.4d': 'Diagnostic AA, plan de remédiation, suivi agences',
+    'layer0.5': 'Gouvernance pérenne', 'layer0.5d': 'Comités récurrents, référentiels, docs vivantes',
+    'case1.lede': 'Sécuriser, c\'est une chose. <em>Rendre un parc web responsable</em>, c\'en est une autre. Sur le même périmètre Eurial, j\'ai ouvert un second chantier&nbsp;: <strong>RGPD, accessibilité, éco-conception</strong>. Trois exigences que les marques regardaient encore comme des audits techniques séparés.',
+    'case1.role': 'Mon rôle',
+    'case1.role.body': 'Traduire des audits techniques en plans d\'action lisibles pour les métiers, les agences et la DSI. Sortir du «&nbsp;rapport&nbsp;» pour entrer dans le pilotage&nbsp;: priorités, échéances, responsables.',
+    'case1.approach': 'Approche',
+    'case1.approach.body': 'Analyser chaque site sous quatre angles : cookies (Didomi), accessibilité (RGAA/WCAG), éco-conception (EcoIndex), sécurité (SecurityHeaders), puis bâtir des <strong>directives web communes</strong> que tout le monde accepte&nbsp;: marques, agences, DSI.',
+    'case1.s1': 'Référentiels croisés sur chaque site',
+    'case1.s2': 'Niveau accessibilité visé sur les sites prioritaires',
+    'case1.s3': 'Cadre de directives web partagé pour le groupe',
+    'schema1.title': 'Schéma / Quatre exigences, un cadre',
+    'layer1.1': 'Cookies & consentement', 'layer1.1d': 'Didomi · cartographie des traceurs · politique groupe',
+    'layer1.2': 'Accessibilité RGAA · WCAG', 'layer1.2d': 'Diagnostic AA · plan de remédiation · suivi agences',
+    'layer1.3': 'Éco-conception web', 'layer1.3d': 'EcoIndex · réduction volumétrie · sobriété assets',
+    'layer1.4': 'Headers de sécurité', 'layer1.4d': 'SecurityHeaders · CSP · HSTS · cohérence inter-marques',
+    'layer1.5': 'Directives web groupe', 'layer1.5d': 'Cadre commun pour métiers, agences et DSI',
+    'case2.lede': 'À côté du web, il y a tout ce qui <em>tourne en silence</em>&nbsp;: fichiers à classer, dossiers à créer, validations à transmettre. J\'ai conçu des flux <strong>Power Automate</strong> branchés sur <strong>SharePoint</strong> pour fiabiliser ces traitements récurrents, sans transformer la DSI en équipe de support.',
+    'case2.role': 'Mon rôle',
+    'case2.role.body': 'Concepteur des flux&nbsp;: cadrage du besoin métier, modélisation, mise en place, gestion des erreurs et passation. L\'objectif n\'est jamais l\'automatisation pour l\'automatisation. C\'est la robustesse.',
+    'case2.approach': 'Approche',
+    'case2.approach.body': 'Identifier les tâches manuelles à fort volume et faible valeur ajoutée, puis dérouler&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu\'un d\'autre que moi.',
+    'case2.s1': 'Flux récurrents fiabilisés',
+    'case2.s2': 'Doublon toléré dans les traitements par lots',
+    'case2.s3': 'Logs et reprise sur erreur intégrés à chaque flux',
+    'schema2.title': 'Schéma / Anatomie d\'un flux',
+    'layer2.1': 'Déclencheur', 'layer2.1d': 'Dépôt fichier · planning · approbation reçue',
+    'layer2.2': 'Contrôle & déduplication', 'layer2.2d': 'Vérification format, hash, doublon, métadonnées',
+    'layer2.3': 'Traitement par lots', 'layer2.3d': 'Création dossiers SharePoint · classement · routage',
+    'layer2.4': 'Gestion d\'erreurs', 'layer2.4d': 'Capture, log, alerte, file d\'attente de reprise',
+    'layer2.5': 'Passation', 'layer2.5d': 'Documentation, schéma, transfert au support DSI',
+    'case3.lede': 'Mémoire professionnel à <strong>Audencia</strong>&nbsp;: <em>AI Chatbots vs. Human Frontline Services: An Exploration of Customer Experience in Online Shopping</em>.',
+    'case3.role': 'Mon rôle',
+    'case3.role.body': 'Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l\'étude, conduite des entretiens, analyse, rédaction. Une posture de chercheur, pas de prescripteur.',
+    'case3.approach': 'Approche',
+    'case3.approach.body': 'Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l\'information, temps d\'attente, confiance, attention</strong>. Lire les résultats sans complaisance pour la techno : l\'IA n\'est pas un point d\'arrivée, c\'est un outil.',
+    'case3.s1': 'Dimensions analysées dans la perception client',
+    'case3.s2': 'Méthodologie qualitative · entretiens approfondis',
+    'case3.s3': 'Soutenu à Audencia · Master Marketing',
+    'schema3.title': 'Schéma / Cadre d\'analyse',
+    'schema3.n1': 'Chatbot IA', 'schema3.n1r': 'Disponibilité · vitesse',
+    'schema3.n2': 'Client', 'schema3.n2r': 'Perception · confiance',
+    'schema3.n3': 'Conseiller', 'schema3.n3r': 'Empathie · nuance',
+    'layer3.1': 'Satisfaction', 'layer3.1d': 'Au-delà de la résolution&nbsp;: ressenti global du parcours',
+    'layer3.2': 'Qualité de l\'information', 'layer3.2d': 'Justesse, contextualisation, pertinence',
+    'layer3.3': 'Temps d\'attente', 'layer3.3d': 'Perçu vs. réel · seuils d\'acceptabilité',
+    'layer3.4': 'Confiance', 'layer3.4d': 'Sur la marque, la donnée, la décision rendue',
+    'layer3.5': 'Attention', 'layer3.5d': 'Capacité du système à maintenir l\'engagement',
+    'status.audit': 'Audit', 'status.dim': 'Dimension',
+    'tg.2.c': 'Sécurité web · WAF',
+    'lvl.basics': 'Notions',
     'schema.title': 'Schéma / Chaîne de responsabilité',
     'schema.n1': 'Marketing', 'schema.n1r': 'Les marques · Besoins',
     'schema.n2r': 'Chargé de projet · Pivot',
@@ -2323,6 +2402,85 @@ const dict = {
     'case.s1': 'Sites audited and classified by criticality',
     'case.s2': 'Downtime during the WAF cutover',
     'case.s3': 'Accessibility audit (AA level) run in parallel',
+    'nav.index': 'Index', 'nav.timeline': 'Timeline', 'nav.project': 'Project', 'nav.manifesto': 'Manifesto', 'nav.tools': 'Tools', 'nav.contact': 'Contact',
+    'nav.write': 'Write →',
+    'side.index': '01 · Index', 'side.timeline': '02 · Timeline', 'side.project': '03 · Project', 'side.manifesto': '04 · Manifesto', 'side.tools': '05 · Tools', 'side.contact': '06 · Contact',
+    'sec.timeline': '§ 02 / Timeline',
+    'sec.case': '§ 03 / Case studies',
+    'sec.manifesto': '§ 04 / Manifesto',
+    'sec.tools': '§ 05 / Tools & terrains',
+    'case.title': 'Four fields, <em>one method.</em>',
+    'case.deck': 'Four projects I can actually defend, from the international web estate to the research thesis. Each time, the same reflex&nbsp;: map, prioritise, ship without breaking what is already running.',
+    'ct.0.num': '01 / Security', 'ct.1.num': '02 / Compliance', 'ct.2.num': '03 / Automation', 'ct.3.num': '04 / Research',
+    'ct.0': 'International web estate',
+    'ct.1': 'GDPR · A11y · Sustainable web',
+    'ct.2': 'Power Automate · SharePoint',
+    'ct.3': 'AI & customer experience',
+    'case0.lede': 'When I joined Eurial, the question wasn\'t <em>"should we secure our sites?"</em> but <strong>where to start</strong>. I became the conductor between <strong>group cybersecurity</strong>, <strong>web agencies</strong>, <strong>IT infrastructure</strong>, and <strong>marketing teams</strong> who would not tolerate downtime.',
+    'case0.role': 'My role',
+    'case0.role.body': 'Cross-functional project lead&nbsp;: scoping, prioritisation, trade-offs, steering committee reporting. Not a line of code, but every decision went through me before reaching the hosting provider.',
+    'case0.approach': 'Approach',
+    'case0.approach.body': 'Map what exists (sites, CMS, versions, criticality), define a target security level per brand, then roll out in waves to absorb agency load without freezing marketing campaigns.',
+    'case0.s1': 'Websites audited and ranked by criticality',
+    'case0.s2': 'Service interruption during the WAF cutover',
+    'case0.s3': 'AA-level accessibility audit run in parallel',
+    'schema0.title': 'Diagram / Responsibility chain',
+    'schema0.n1': 'Marketing', 'schema0.n1r': 'Brands · Needs',
+    'schema0.n2r': 'Project lead · Pivot',
+    'schema0.n3': 'Cyber + IT', 'schema0.n3r': 'Technical execution',
+    'layer0.1': 'Estate mapping', 'layer0.1d': 'CMS inventory, versions, criticality, agency dependencies',
+    'layer0.2': 'Reverse proxy · WAF', 'layer0.2d': 'Progressive waves, no marketing downtime',
+    'layer0.3': 'Hardened servers', 'layer0.3d': 'Migration to more robust infrastructure, controlled updates',
+    'layer0.4': 'RGAA accessibility audit', 'layer0.4d': 'AA diagnostic, remediation plan, agency follow-up',
+    'layer0.5': 'Long-term governance', 'layer0.5d': 'Recurring committees, standards, living documentation',
+    'case1.lede': 'Securing a web estate is one thing. <em>Making it responsible</em> is another. On the same Eurial scope, I opened a second workstream&nbsp;: <strong>GDPR, accessibility, sustainable web design</strong>. Three requirements that brands still saw as separate technical audits.',
+    'case1.role': 'My role',
+    'case1.role.body': 'Turn technical audits into readable action plans for business teams, agencies and IT. Move from the "report" into delivery control&nbsp;: priorities, deadlines, owners.',
+    'case1.approach': 'Approach',
+    'case1.approach.body': 'Assess each site through four lenses: cookies (Didomi), accessibility (RGAA/WCAG), sustainable web design (EcoIndex), security (SecurityHeaders), then build <strong>shared web guidelines</strong> that everyone can work with&nbsp;: brands, agencies, IT.',
+    'case1.s1': 'Reference frameworks cross-checked on every site',
+    'case1.s2': 'Target accessibility level for priority sites',
+    'case1.s3': 'Shared web guidelines framework for the group',
+    'schema1.title': 'Diagram / Four requirements, one framework',
+    'layer1.1': 'Cookies & consent', 'layer1.1d': 'Didomi · tracker mapping · group policy',
+    'layer1.2': 'Accessibility RGAA · WCAG', 'layer1.2d': 'AA diagnostic · remediation plan · agency follow-up',
+    'layer1.3': 'Sustainable web design', 'layer1.3d': 'EcoIndex · page-weight reduction · asset sobriety',
+    'layer1.4': 'Security headers', 'layer1.4d': 'SecurityHeaders · CSP · HSTS · cross-brand consistency',
+    'layer1.5': 'Group web guidelines', 'layer1.5d': 'Shared framework for business teams, agencies and IT',
+    'case2.lede': 'Alongside the web, there is everything that <em>runs quietly</em>&nbsp;: files to sort, folders to create, approvals to route. I designed <strong>Power Automate</strong> flows connected to <strong>SharePoint</strong> to make those recurring processes reliable, without turning IT into a support queue.',
+    'case2.role': 'My role',
+    'case2.role.body': 'Flow designer&nbsp;: business scoping, modelling, implementation, error handling and handover. The goal is never automation for automation\'s sake. The goal is robustness.',
+    'case2.approach': 'Approach',
+    'case2.approach.body': 'Identify high-volume, low-value manual tasks, then execute&nbsp;: file synchronisation, SharePoint folder creation, duplicate checks, batch processing, error handling. Everything has to remain <strong>readable and maintainable</strong> by someone other than me.',
+    'case2.s1': 'Recurring flows made reliable',
+    'case2.s2': 'Duplicate tolerated in batch processing',
+    'case2.s3': 'Logs and error recovery built into every flow',
+    'schema2.title': 'Diagram / Anatomy of a flow',
+    'layer2.1': 'Trigger', 'layer2.1d': 'File drop · schedule · approval received',
+    'layer2.2': 'Control & deduplication', 'layer2.2d': 'Format check, hash, duplicate, metadata',
+    'layer2.3': 'Batch processing', 'layer2.3d': 'SharePoint folder creation · filing · routing',
+    'layer2.4': 'Error handling', 'layer2.4d': 'Capture, log, alert, recovery queue',
+    'layer2.5': 'Handover', 'layer2.5d': 'Documentation, diagram, transfer to IT support',
+    'case3.lede': 'Professional thesis at <strong>Audencia</strong>&nbsp;: <em>AI Chatbots vs. Human Frontline Services: An Exploration of Customer Experience in Online Shopping</em>.',
+    'case3.role': 'My role',
+    'case3.role.body': 'End-to-end qualitative research&nbsp;: theoretical framing, study design, interviews, analysis, writing. A researcher\'s posture, not a vendor pitch.',
+    'case3.approach': 'Approach',
+    'case3.approach.body': 'Compare AI chatbots and human frontline services across five dimensions&nbsp;: <strong>satisfaction, perceived information quality, waiting time, trust, attention</strong>. Read the results without tech complacency: AI is not a destination, it is a tool.',
+    'case3.s1': 'Dimensions analysed in customer perception',
+    'case3.s2': 'Qualitative methodology · in-depth interviews',
+    'case3.s3': 'Defended at Audencia · Master Marketing',
+    'schema3.title': 'Diagram / Analysis framework',
+    'schema3.n1': 'AI chatbot', 'schema3.n1r': 'Availability · speed',
+    'schema3.n2': 'Customer', 'schema3.n2r': 'Perception · trust',
+    'schema3.n3': 'Frontline agent', 'schema3.n3r': 'Empathy · nuance',
+    'layer3.1': 'Satisfaction', 'layer3.1d': 'Beyond resolution&nbsp;: the overall feeling of the journey',
+    'layer3.2': 'Information quality', 'layer3.2d': 'Accuracy, contextualisation, relevance',
+    'layer3.3': 'Waiting time', 'layer3.3d': 'Perceived vs. actual · acceptability thresholds',
+    'layer3.4': 'Trust', 'layer3.4d': 'In the brand, the data, the decision returned',
+    'layer3.5': 'Attention', 'layer3.5d': 'The system\'s ability to maintain engagement',
+    'status.audit': 'Audit', 'status.dim': 'Dimension',
+    'tg.2.c': 'Web security · WAF',
+    'lvl.basics': 'Basics',
     'schema.title': 'Diagram / Responsibility chain',
     'schema.n1': 'Marketing', 'schema.n1r': 'Brands · Needs',
     'schema.n2r': 'Project lead · Pivot',
