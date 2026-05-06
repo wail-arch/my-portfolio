@@ -344,6 +344,33 @@
     display: inline-block; width: 6px; height: 6px; border-radius: 50%;
     background: var(--accent);
   }
+  .ticker.logos { padding: 22px 0; }
+  .ticker.logos .ticker-track {
+    gap: 72px;
+    align-items: center;
+  }
+  .ticker.logos .ticker-track .lg {
+    display: inline-flex;
+    align-items: center;
+    gap: 72px;
+  }
+  .ticker.logos img {
+    height: 34px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.55);
+    transition: filter .3s;
+    flex-shrink: 0;
+  }
+  .ticker.logos:hover img { filter: grayscale(0%) opacity(1); }
+  .ticker.logos .sep {
+    display: inline-block;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--ink-4);
+    flex-shrink: 0;
+  }
   @keyframes scroll {
     from { transform: translateX(0); }
     to { transform: translateX(-50%); }
@@ -456,8 +483,19 @@
     opacity: 0.6;
     transition: opacity .2s, color .2s;
   }
+  .timeline-node .label img {
+    display: block;
+    max-height: 26px;
+    max-width: 120px;
+    width: auto;
+    object-fit: contain;
+    filter: grayscale(100%) opacity(0.65);
+    transition: filter .2s;
+  }
   .timeline-node:hover .label,
   .timeline-node.active .label { opacity: 1; color: var(--ink); }
+  .timeline-node:hover .label img,
+  .timeline-node.active .label img { filter: grayscale(0%) opacity(1); }
   .timeline-node.down .label { top: auto; bottom: -46px; }
 
   /* card for currently-selected experience */
@@ -487,6 +525,41 @@
     font-size: 0.72em;
     display: block;
     margin-top: 0.1em;
+  }
+  .tc-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 18px;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    align-self: flex-start;
+    max-width: 100%;
+  }
+  .tc-brand img {
+    max-height: 46px;
+    max-width: 220px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    display: block;
+  }
+  .tc-brand .tc-brand-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border-left: 1px solid var(--rule);
+    padding-left: 14px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--ink-3);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .tc-brand .tc-brand-meta b {
+    color: var(--ink);
+    font-weight: 500;
+    letter-spacing: 0.1em;
   }
   .tc-meta {
     display: flex;
@@ -1187,6 +1260,9 @@
     /* ticker */
     .ticker { margin-top: 56px; padding: 12px 0; }
     .ticker-track { font-size: 11px; gap: 40px; }
+    .ticker.logos img { height: 24px; }
+    .ticker.logos .ticker-track { gap: 44px; }
+    .ticker.logos .ticker-track .lg { gap: 44px; }
 
     /* ----- SECTION HEADS ----- */
     .section-head {
@@ -1211,6 +1287,9 @@
     }
     .tc-logo { font-size: clamp(44px, 14vw, 72px); line-height: 0.9; }
     .tc-logo em { font-size: 0.58em; }
+    .tc-brand { padding: 10px 14px; gap: 10px; }
+    .tc-brand img { max-height: 34px; max-width: 140px; }
+    .tc-brand .tc-brand-meta { font-size: 9px; padding-left: 10px; }
     .tc-role { font-size: 17px; line-height: 1.3; }
     .tc-meta { flex-wrap: wrap; gap: 10px 20px; font-size: 10px; padding-top: 10px; }
     .tc-deck { font-size: 16px; padding-left: 14px; }
@@ -2118,6 +2197,7 @@
 const chapters = [
   {
     slug: 'eurial',
+    logo: 'assets/logos/eurial.png',
     when: { fr: 'Juil. 2024 → Déc. 2025', en: 'Jul 2024 → Dec 2025' },
     date: { start: 2024.5, end: 2025.9 },
     company: 'Eurial',
@@ -2146,6 +2226,7 @@ const chapters = [
   },
   {
     slug: 'fev',
+    logo: 'assets/logos/fev.png',
     when: { fr: 'Mai → Oct. 2023', en: 'May → Oct 2023' },
     date: { start: 2023.4, end: 2023.83 },
     company: 'FEV',
@@ -2172,6 +2253,7 @@ const chapters = [
   },
   {
     slug: 'ca',
+    logo: 'assets/logos/credit-agricole.png',
     when: { fr: 'Jan. → Juil. 2022', en: 'Jan → Jul 2022' },
     date: { start: 2022.0, end: 2022.55 },
     company: 'Crédit Agricole',
@@ -2196,6 +2278,7 @@ const chapters = [
   },
   {
     slug: 'sg',
+    logo: 'assets/logos/societe-generale.png',
     when: { fr: 'Juil. → Déc. 2021', en: 'Jul → Dec 2021' },
     date: { start: 2021.55, end: 2021.95 },
     company: 'Société Générale',
@@ -2220,6 +2303,7 @@ const chapters = [
   },
   {
     slug: 'nhh',
+    logo: 'assets/logos/audencia.png',
     when: { fr: '2020 — 2023', en: '2020 — 2023' },
     date: { start: 2021.15, end: 2021.15 },
     company: 'Audencia · EM · NHH',
@@ -2562,8 +2646,11 @@ function buildRail() {
     const node = document.createElement('div');
     node.className = 'timeline-node' + (i === activeIdx ? ' active' : '') + (i % 2 === 1 ? ' down' : '');
     node.style.left = (pos(ch.date.start) * 100) + '%';
+    const labelInner = ch.logo
+      ? `<img src="${ch.logo}" alt="${ch.company}">`
+      : ch.company;
     node.innerHTML = `
-      <div class="label">${ch.company}</div>
+      <div class="label">${labelInner}</div>
       <div class="chip"></div>
     `;
     node.addEventListener('click', () => selectIdx(i));
@@ -2578,6 +2665,11 @@ function renderCard(i) {
   setTimeout(() => {
     card.innerHTML = `
       <div class="tc-left">
+        ${ch.logo ? `
+        <div class="tc-brand">
+          <img src="${ch.logo}" alt="${ch.company}">
+          <div class="tc-brand-meta"><span>${currentLang === 'fr' ? 'Terrain' : 'Field'}</span><b>${String(i + 1).padStart(2, '0')} / ${chapters.length}</b></div>
+        </div>` : ''}
         <h3 class="tc-logo">${ch.company}<em>${ch.sub[currentLang]}</em></h3>
         <div class="tc-role">${ch.role[currentLang]}</div>
         <div class="tc-meta">
@@ -2665,12 +2757,22 @@ renderCard(0);
    TICKER
    =========================================================== */
 function buildTicker() {
+  const logos = [
+    { src: 'assets/logos/eurial.png', name: 'Eurial' },
+    { src: 'assets/logos/fev.png', name: 'FEV' },
+    { src: 'assets/logos/credit-agricole.png', name: 'Crédit Agricole' },
+    { src: 'assets/logos/societe-generale.png', name: 'Société Générale' },
+    { src: 'assets/logos/audencia.png', name: 'Audencia' }
+  ];
   const bits = currentLang === 'fr'
     ? ['Nantes · FR', 'Chargé de projet digital', 'Gouvernance web', 'RGAA 4.1', 'Cybersécurité', 'Éco-conception', 'Marketing digital', 'Coordination DSI · Agences', 'FR · EN · AR', 'Disponible']
     : ['Nantes · FR', 'Digital project lead', 'Web governance', 'WCAG 2.1 AA', 'Cybersecurity', 'Sustainable web', 'Digital marketing', 'IT & agency coordination', 'FR · EN · AR', 'Available'];
   const track = document.getElementById('ticker');
-  const line = bits.map(b => `<span>★&nbsp;&nbsp;${b}</span>`).join('<span class="dot" style="width:6px;height:6px;border-radius:50%;background:var(--accent);display:inline-block;"></span>');
-  track.innerHTML = line + line;
+  track.parentElement.classList.add('logos');
+  const logoRun = logos.map(l => `<img src="${l.src}" alt="${l.name}">`).join('<span class="sep"></span>');
+  const wordRun = bits.map(b => `<span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:var(--ink-2);text-transform:uppercase;">★&nbsp;&nbsp;${b}</span>`).join('<span class="sep"></span>');
+  const block = `<span class="lg">${logoRun}<span class="sep"></span>${wordRun}<span class="sep"></span></span>`;
+  track.innerHTML = block + block;
 }
 buildTicker();
 
