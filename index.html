@@ -1259,10 +1259,16 @@
 
     /* ticker */
     .ticker { margin-top: 56px; padding: 12px 0; }
-    .ticker-track { font-size: 11px; gap: 40px; }
-    .ticker.logos img { height: 24px; }
-    .ticker.logos .ticker-track { gap: 44px; }
-    .ticker.logos .ticker-track .lg { gap: 44px; }
+    .ticker-track {
+      font-size: 10px;
+      gap: 28px;
+      animation-duration: 26s;
+    }
+    .ticker.logos { padding: 14px 0; }
+    .ticker.logos img { height: 21px; }
+    .ticker.logos .ticker-track { gap: 28px; }
+    .ticker.logos .ticker-track .lg { gap: 28px; }
+    .ticker.logos .sep { width: 3px; height: 3px; }
 
     /* ----- SECTION HEADS ----- */
     .section-head {
@@ -2757,6 +2763,7 @@ renderCard(0);
    TICKER
    =========================================================== */
 function buildTicker() {
+  const isMobile = window.matchMedia('(max-width: 720px)').matches;
   const logos = [
     { src: 'assets/logos/eurial.png', name: 'Eurial' },
     { src: 'assets/logos/fev.png', name: 'FEV' },
@@ -2764,9 +2771,12 @@ function buildTicker() {
     { src: 'assets/logos/societe-generale.png', name: 'Société Générale' },
     { src: 'assets/logos/audencia.png', name: 'Audencia' }
   ];
-  const bits = currentLang === 'fr'
+  const bitsAll = currentLang === 'fr'
     ? ['Nantes · FR', 'Chargé de projet digital', 'Gouvernance web', 'RGAA 4.1', 'Cybersécurité', 'Éco-conception', 'Marketing digital', 'Coordination DSI · Agences', 'FR · EN · AR', 'Disponible']
     : ['Nantes · FR', 'Digital project lead', 'Web governance', 'WCAG 2.1 AA', 'Cybersecurity', 'Sustainable web', 'Digital marketing', 'IT & agency coordination', 'FR · EN · AR', 'Available'];
+  const bits = isMobile
+    ? bitsAll.filter((_, i) => [0, 1, 2, 4, 7, 9].includes(i))
+    : bitsAll;
   const track = document.getElementById('ticker');
   track.parentElement.classList.add('logos');
   const logoRun = logos.map(l => `<img src="${l.src}" alt="${l.name}">`).join('<span class="sep"></span>');
