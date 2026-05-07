@@ -493,16 +493,20 @@
     font: inherit;
   }
   .timeline-node .chip {
-    width: 14px; height: 14px; border-radius: 50%;
+    display: block;
+    width: 16px;
+    height: 16px;
+    aspect-ratio: 1;
+    border-radius: 999px;
     background: var(--paper);
-    border: 2px solid var(--ink-2);
-    transition: all .3s;
+    border: 2px solid var(--ink);
+    transition: background .3s, border-color .3s, box-shadow .3s, transform .3s;
     position: relative;
   }
   .timeline-node.active .chip {
     background: var(--accent);
     border-color: var(--accent);
-    transform: scale(1.4);
+    transform: scale(1.32);
     box-shadow: 0 0 0 8px color-mix(in srgb, var(--accent) 18%, transparent);
   }
   .timeline-node .label {
@@ -1866,7 +1870,7 @@
   <div class="pitch-row rv">
     <div class="label" data-i18n="pitch.label">A01 / Proposition</div>
     <p class="pitch" data-i18n="pitch.body">
-      J’aide à faire avancer des <em>projets web</em> où les besoins marketing, les contraintes DSI, les exigences cybersécurité et le <span class="mark">travail des agences</span> doivent s’aligner. Mon rôle&nbsp;: garder les échanges assez clairs pour que le projet avance.
+      J’aide à faire avancer des <em>projets web</em> où les besoins marketing, les contraintes DSI, les exigences cybersécurité et le <span class="mark">travail des agences</span> s’alignent. Mon rôle&nbsp;: garder les échanges assez clairs pour que le projet avance.
     </p>
     <div class="right-col">
       <a id="cvLink" href="assets/CV.pdf" target="_blank" rel="noopener" aria-label="Télécharger le CV PDF, ouvre un nouvel onglet">
@@ -2164,7 +2168,7 @@
 
       <div class="case-block">
         <div class="label" data-i18n="case2.approach">Approche</div>
-        <p data-i18n="case2.approach.body">Identifier les tâches manuelles à fort volume et faible valeur ajoutée, puis dérouler&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu'un d'autre que moi.</p>
+        <p data-i18n="case2.approach.body">Identifier les tâches manuelles récurrentes, puis les rendre plus simples à traiter&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu'un d'autre que moi.</p>
       </div>
 
       <div class="case-stats">
@@ -2247,12 +2251,12 @@
 
       <div class="case-block">
         <div class="label" data-i18n="case3.role">Mon rôle</div>
-        <p data-i18n="case3.role.body">Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l'étude, conduite des entretiens, analyse, rédaction. Une posture de chercheur, pas de prescripteur.</p>
+        <p data-i18n="case3.role.body">Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l'étude, conduite des entretiens, analyse, rédaction. L'objectif était de comprendre l'expérience vécue, pas de défendre la technologie.</p>
       </div>
 
       <div class="case-block">
         <div class="label" data-i18n="case3.approach">Approche</div>
-        <p data-i18n="case3.approach.body">Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l'information, temps d'attente, confiance, attention</strong>. Lire les résultats sans complaisance pour la techno : l'IA n'est pas un point d'arrivée, c'est un outil.</p>
+        <p data-i18n="case3.approach.body">Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l'information, temps d'attente, confiance, attention</strong>. Les résultats sont nuancés, et c'est justement ce qui les rend utiles&nbsp;: la rapidité compte, mais la confiance, l'attention et le contexte comptent aussi.</p>
       </div>
 
       <div class="case-stats">
@@ -2365,8 +2369,8 @@
     </div>
     <div class="manifesto-item rv">
       <span class="num">03</span>
-      <h3 data-i18n="m3.h">Parcours <em>hybride</em>.</h3>
-      <p data-i18n="m3.p">Audencia, EM Strasbourg, NHH Bergen (Norvège). Banques, agro-alimentaire, industrie auto. Trois langues. Je me pose vite dans un contexte nouveau ; c'est un réflexe, pas un argument de CV.</p>
+      <h3 data-i18n="m3.h">Expertise <em>pluridisciplinaire</em>.</h3>
+      <p data-i18n="m3.p">Audencia, EM Strasbourg, NHH Bergen (Norvège). Banques, agro-alimentaire, industrie auto. Trois langues. Je passe assez naturellement d'un secteur à l'autre, surtout quand il faut relier marketing, gouvernance web et coordination projet.</p>
     </div>
   </div>
 </section>
@@ -2379,7 +2383,7 @@
       <h2 class="section-title" data-i18n="tools.title">Ce que j'utilise <em>au quotidien.</em></h2>
     </div>
     <p class="section-deck rv" data-i18n="tools.deck">
-      Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et le niveau de confort que j'y ai.
+      Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et ceux sur lesquels je suis à l'aise.
     </p>
   </div>
 
@@ -2533,7 +2537,7 @@ const chapters = [
     role: { fr: 'Chargé de projet digital', en: 'Digital project lead' },
     deck: {
       fr: 'Ma dernière escale : accompagner le quotidien web d\'un acteur laitier international, entre sécurité, accessibilité, éco-conception, DSI, cybersécurité et agences.',
-      en: 'My latest stop: helping steer the day-to-day web operations of an international dairy group, across security, accessibility, sustainable web design, IT, cybersecurity and agencies.'
+      en: 'My latest stop: helping guide the day-to-day web operations of an international dairy group, across security, accessibility, sustainable web design, IT, cybersecurity and agencies.'
     },
     bullets: {
       fr: [
@@ -2666,7 +2670,7 @@ const dict = {
     'meta.loc': 'Base', 'meta.status': 'Statut', 'meta.status.v': 'Disponible · Mobilité hybride',
     'portrait.caption': 'Fig. 01 · l\'auteur, Nantes 2026',
     'pitch.label': 'A01 / Proposition',
-    'pitch.body': 'J’aide à faire avancer des <em>projets web</em> où les besoins marketing, les contraintes DSI, les exigences cybersécurité et le <span class="mark">travail des agences</span> doivent s’aligner. Mon rôle&nbsp;: garder les échanges assez clairs pour que le projet avance.',
+    'pitch.body': 'J’aide à faire avancer des <em>projets web</em> où les besoins marketing, les contraintes DSI, les exigences cybersécurité et le <span class="mark">travail des agences</span> s’alignent. Mon rôle&nbsp;: garder les échanges assez clairs pour que le projet avance.',
     'cta.cv': 'Télécharger le CV (PDF)',
     'cta.contact': 'Écrivez-moi',
     'tl.title': 'Un parcours, <em>cinq chapitres</em>.',
@@ -2732,7 +2736,7 @@ const dict = {
     'case2.role': 'Mon rôle',
     'case2.role.body': 'Concepteur des flux&nbsp;: cadrage du besoin métier, modélisation, mise en place, gestion des erreurs et passation. L\'objectif n\'est jamais l\'automatisation pour l\'automatisation. C\'est la robustesse.',
     'case2.approach': 'Approche',
-    'case2.approach.body': 'Identifier les tâches manuelles à fort volume et faible valeur ajoutée, puis dérouler&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu\'un d\'autre que moi.',
+    'case2.approach.body': 'Identifier les tâches manuelles récurrentes, puis les rendre plus simples à traiter&nbsp;: synchronisation de fichiers, création de dossiers SharePoint, contrôle des doublons, traitement par lots, gestion des erreurs. Tout doit rester <strong>lisible et maintenable</strong> par quelqu\'un d\'autre que moi.',
     'case2.s1': 'Flux récurrents fiabilisés',
     'case2.s2': 'Doublon toléré dans les traitements par lots',
     'case2.s3': 'Logs et reprise sur erreur intégrés à chaque flux',
@@ -2744,9 +2748,9 @@ const dict = {
     'layer2.5': 'Passation', 'layer2.5d': 'Documentation, schéma, transfert au support DSI',
     'case3.lede': 'Mémoire professionnel à <strong>Audencia</strong>&nbsp;: <em>AI Chatbots vs. Human Frontline Services: An Exploration of Customer Experience in Online Shopping</em>.',
     'case3.role': 'Mon rôle',
-    'case3.role.body': 'Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l\'étude, conduite des entretiens, analyse, rédaction. Une posture de chercheur, pas de prescripteur.',
+    'case3.role.body': 'Recherche qualitative de bout en bout&nbsp;: cadrage théorique, design de l\'étude, conduite des entretiens, analyse, rédaction. L\'objectif était de comprendre l\'expérience vécue, pas de défendre la technologie.',
     'case3.approach': 'Approche',
-    'case3.approach.body': 'Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l\'information, temps d\'attente, confiance, attention</strong>. Lire les résultats sans complaisance pour la techno : l\'IA n\'est pas un point d\'arrivée, c\'est un outil.',
+    'case3.approach.body': 'Comparer chatbots IA et services clients humains sur cinq dimensions&nbsp;: <strong>satisfaction, qualité perçue de l\'information, temps d\'attente, confiance, attention</strong>. Les résultats sont nuancés, et c\'est justement ce qui les rend utiles&nbsp;: la rapidité compte, mais la confiance, l\'attention et le contexte comptent aussi.',
     'case3.s1': 'Dimensions analysées dans la perception client',
     'case3.s2': 'Méthodologie qualitative · entretiens approfondis',
     'case3.s3': 'Soutenu à Audencia · Master Marketing',
@@ -2778,10 +2782,10 @@ const dict = {
     'm1.p': 'Marketing et DSI ne parlent pas la même langue. Je passe ma journée à traduire des besoins business en décisions techniques, et l\'inverse, sans perdre personne en route. C\'est là que j\'apporte le plus de valeur.',
     'm2.h': 'Rigueur <em>sans rigidité</em>.',
     'm2.p': 'Gouvernance, documentation, référentiels : oui, mais servis tièdes, sans bureaucratie : le but reste de livrer. J\'aime les process qui aident l\'équipe, pas ceux qu\'on subit.',
-    'm3.h': 'Parcours <em>hybride</em>.',
-    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen (Norvège). Banques, agro-alimentaire, industrie auto. Trois langues. Je me pose vite dans un contexte nouveau ; c\'est un réflexe, pas un argument de CV.',
+    'm3.h': 'Expertise <em>pluridisciplinaire</em>.',
+    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen (Norvège). Banques, agro-alimentaire, industrie auto. Trois langues. Je passe assez naturellement d\'un secteur à l\'autre, surtout quand il faut relier marketing, gouvernance web et coordination projet.',
     'tools.title': 'Ce que j\'utilise <em>au quotidien.</em>',
-    'tools.deck': 'Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et le niveau de confort que j\'y ai.',
+    'tools.deck': 'Pas une liste exhaustive de logos. Les terrains que je connais vraiment, et ceux sur lesquels je suis à l\'aise.',
     'tg.1': 'Pilotage & gouvernance',
     'tg.1.a': 'Gestion de projet web', 'tg.1.b': 'Gouvernance multi-sites',
     'tg.1.c': 'Coordination agences', 'tg.1.d': 'Reporting COPIL',
@@ -2798,7 +2802,7 @@ const dict = {
     'meta.loc': 'Base', 'meta.status': 'Status', 'meta.status.v': 'Available · Hybrid mobility',
     'portrait.caption': 'Fig. 01 · the author, Nantes 2026',
     'pitch.label': 'A01 / Proposition',
-    'pitch.body': 'I help steer <em>web projects</em> where marketing needs, IT constraints, cybersecurity requirements and <span class="mark">agency work</span> all have to line up. My role is to keep those conversations clear enough for the work to move forward.',
+    'pitch.body': 'I help guide <em>web projects</em> where marketing needs, IT constraints, cybersecurity requirements and <span class="mark">agency work</span> all line up. My role is to keep those conversations clear enough for the work to move forward.',
     'cta.cv': 'Download CV (PDF)',
     'cta.contact': 'Write to me',
     'tl.title': 'One path, <em>five chapters</em>.',
@@ -2864,7 +2868,7 @@ const dict = {
     'case2.role': 'My role',
     'case2.role.body': 'Flow designer&nbsp;: business scoping, modelling, implementation, error handling and handover. The goal is never automation for automation\'s sake. The goal is robustness.',
     'case2.approach': 'Approach',
-    'case2.approach.body': 'Identify high-volume, low-value manual tasks, then execute&nbsp;: file synchronisation, SharePoint folder creation, duplicate checks, batch processing, error handling. Everything has to remain <strong>readable and maintainable</strong> by someone other than me.',
+    'case2.approach.body': 'Identify recurring manual tasks, then make them easier to handle&nbsp;: file synchronisation, SharePoint folder creation, duplicate checks, batch processing, error handling. Everything has to remain <strong>readable and maintainable</strong> by someone other than me.',
     'case2.s1': 'Recurring flows made reliable',
     'case2.s2': 'Duplicate tolerated in batch processing',
     'case2.s3': 'Logs and error recovery built into every flow',
@@ -2876,9 +2880,9 @@ const dict = {
     'layer2.5': 'Handover', 'layer2.5d': 'Documentation, diagram, transfer to IT support',
     'case3.lede': 'Professional thesis at <strong>Audencia</strong>&nbsp;: <em>AI Chatbots vs. Human Frontline Services: An Exploration of Customer Experience in Online Shopping</em>.',
     'case3.role': 'My role',
-    'case3.role.body': 'End-to-end qualitative research&nbsp;: theoretical framing, study design, interviews, analysis, writing. A researcher\'s posture, not a vendor pitch.',
+    'case3.role.body': 'End-to-end qualitative research&nbsp;: theoretical framing, study design, interviews, analysis, writing. The goal was to understand the experience, not to defend the technology.',
     'case3.approach': 'Approach',
-    'case3.approach.body': 'Compare AI chatbots and human frontline services across five dimensions&nbsp;: <strong>satisfaction, perceived information quality, waiting time, trust, attention</strong>. Read the results without tech complacency: AI is not a destination, it is a tool.',
+    'case3.approach.body': 'Compare AI chatbots and human frontline services across five dimensions&nbsp;: <strong>satisfaction, perceived information quality, waiting time, trust, attention</strong>. The results were mixed in a useful way: speed matters, but so do trust, attention and context.',
     'case3.s1': 'Dimensions analysed in customer perception',
     'case3.s2': 'Qualitative methodology · in-depth interviews',
     'case3.s3': 'Defended at Audencia · Master Marketing',
@@ -2910,10 +2914,10 @@ const dict = {
     'm1.p': 'Marketing and IT don\'t speak the same language. My day is spent translating business needs into technical decisions, and the other way around, without losing anyone along the way. That\'s where I add the most value.',
     'm2.h': 'Rigour <em>without rigidity</em>.',
     'm2.p': 'Governance, documentation, standards: yes, but served warm, without bureaucracy: the point is to ship. I like processes that help the team, not ones they endure.',
-    'm3.h': 'A <em>hybrid</em> path.',
-    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen (Norway). Banks, food industry, automotive. Three languages. I settle into new contexts fast; a reflex, not a CV line.',
+    'm3.h': 'Multidisciplinary <em>expertise</em>.',
+    'm3.p': 'Audencia, EM Strasbourg, NHH Bergen (Norway). Banks, food industry, automotive. Three languages. I bring together marketing, web governance and project coordination across different sectors and cultures.',
     'tools.title': 'What I use <em>every day.</em>',
-    'tools.deck': 'Not an exhaustive logo wall. Just the terrains I actually know, and how comfortable I am on each.',
+    'tools.deck': 'Not an exhaustive logo wall. Just the terrains I actually know, and where I am actually comfortable.',
     'tg.1': 'Leadership & governance',
     'tg.1.a': 'Web project management', 'tg.1.b': 'Multi-site governance',
     'tg.1.c': 'Agency coordination', 'tg.1.d': 'Steering reporting',
