@@ -1,6 +1,6 @@
-# Wail Menouni Portfolio
+# My Portfolio
 
-Personal portfolio for Wail Menouni, built as a static bilingual HTML page.
+My Personal portfolio, built as a static bilingual HTML page.
 
 The site presents my digital project management work through a timeline, case studies, tools, and contact information. It is designed to stay lightweight, readable, and easy to host on GitHub Pages.
 
