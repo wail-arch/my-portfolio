@@ -20,8 +20,10 @@ If you adapt this portfolio, replace the content, imagery, links, and project de
 
 ## Notes
 
-- Static HTML, CSS, and JavaScript.
-- French and English content.
-- Responsive layout.
-- Keyboard and accessibility improvements included.
+- Static HTML, CSS, and JavaScript: `index.html`, `assets/site.css`, `assets/site.js`.
+- No web fonts, no framework, no trackers. Around 90 KB loaded on first visit.
+- French and English content sit side by side in the markup (`data-l="fr"` / `data-l="en"`); the script only switches which one is shown. Add `?lang=en` to a link to share the English version.
+- The career section is a Gantt chart built from `<details>` rows: each bar is positioned with `--s` (start) and `--e` (end) in decimal years.
+- Light and dark themes follow the operating system.
+- Works without JavaScript; the script adds the language switch, the "today" marker and the live page weight in the footer.
 - Built for simple deployment on GitHub Pages.
